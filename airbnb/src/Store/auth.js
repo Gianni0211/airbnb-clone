@@ -1,4 +1,6 @@
 import axios from "axios";
+axios.defaults.withCredentials = true
+axios.defaults.baseURL = 'http://localhost:8000/';
 
 export default {
     namespaced: true,
@@ -24,6 +26,7 @@ export default {
         },
 
         SET_USER(state, value) {
+            console.log(value);
             state.user = value;
         }
     },
@@ -41,16 +44,15 @@ export default {
 
             return dispatch("me");
         },
-        async me({ commit }) {
-            try {
-                const res = axios.get("/api/user");
-                commit("SET_AUTHENTICATED", true);
-                commit("SET_USER", res.data);
-            } catch (err) {
-                console.log(err);
-                commit("SET_AUTHENTICATED", false);
-                commit("SET_USER", null);
-            }
-        }
+        me ({ commit }) {
+            return axios.get('/api/user').then((response) => {
+            
+              commit('SET_AUTHENTICATED', true)
+              commit('SET_USER', response.data)
+            }).catch(() => {
+              commit('SET_AUTHENTICATED', false)
+              commit('SET_USER', null)
+            })
+          }
     }
 };

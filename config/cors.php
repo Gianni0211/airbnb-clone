@@ -15,8 +15,7 @@ return [
     |
     */
 
-    'paths' => [
-        '*',
+    'paths' => [        
         'api/*',
         '/login',
         '/logout',

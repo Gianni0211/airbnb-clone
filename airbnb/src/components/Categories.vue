@@ -19,6 +19,8 @@
 import CardGrid from './ExperienceSection/CardGrid';
 import CardCarousel from './ExperienceSection/CardCarousel';
 import axios from 'axios';
+axios.defaults.withCredentials = true
+axios.defaults.baseURL = 'http://localhost:8000/';
 
 export default {
 name: 'Categories',
@@ -36,7 +38,7 @@ methods: {
   
 },
 created(){
-  axios.get('/get_all_categories').then((res) => {
+  axios.get('api/get_all_categories').then((res) => {
       this.categories = res.data;
       
     }).catch((err) => {

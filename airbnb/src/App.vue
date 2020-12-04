@@ -15,7 +15,7 @@ export default {
   computed: {
     ...mapGetters({
       authenticated: "auth/authenticated",
-      user: "user",
+      user: "auth/user",
     }),
   },
 
