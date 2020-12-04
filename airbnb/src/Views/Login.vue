@@ -134,16 +134,17 @@ export default {
 
   methods: {
     login() {
-      axios.get("/sanctum/csrf-cookie").then((response) => {
-        console.log(response);
+      axios.get("/sanctum/csrf-cookie").then(() => {
+        
         axios
           .post("/login", {
-            email: this.form.email,
-            password: this.form.password,
+            email: 'admin@admin.com',
+            password: 'password',
           })
-          .then((res) => {
-            console.log(res);
-            axios.get("/api/prova").then((r) => console.log(r));
+          .then((r) => {
+            console.log(r)
+           this.$router.push({name: 'home'});
+            
           });
       });
     },

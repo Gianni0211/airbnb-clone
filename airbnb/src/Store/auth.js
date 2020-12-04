@@ -1,6 +1,7 @@
 import axios from "axios";
 axios.defaults.withCredentials = true
 axios.defaults.baseURL = 'http://localhost:8000/';
+axios.defaults.accept = 'application/json'
 
 export default {
     namespaced: true,
@@ -26,7 +27,7 @@ export default {
         },
 
         SET_USER(state, value) {
-            console.log(value);
+            
             state.user = value;
         }
     },
@@ -46,7 +47,7 @@ export default {
         },
         me ({ commit }) {
             return axios.get('/api/user').then((response) => {
-            
+                console.log(response);
               commit('SET_AUTHENTICATED', true)
               commit('SET_USER', response.data)
             }).catch(() => {

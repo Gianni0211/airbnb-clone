@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/prova', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/prova', function (Request $request) {
     return response()->json($request);
 });
 
