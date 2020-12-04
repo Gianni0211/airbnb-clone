@@ -98,6 +98,7 @@
           </button>
         </div>
       </form>
+      
     </div>
   </div>
 </template>
@@ -107,6 +108,7 @@
 import axios from "axios";
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.accept = "application/json";
 export default {
   name: "Login",
 
@@ -141,8 +143,8 @@ export default {
             email: 'admin@admin.com',
             password: 'password',
           })
-          .then((r) => {
-            console.log(r)
+          .then(() => {
+            
            this.$router.push({name: 'home'});
             
           });
