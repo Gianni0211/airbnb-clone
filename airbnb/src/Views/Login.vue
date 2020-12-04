@@ -19,7 +19,7 @@
           </a>
         </p>
       </div>
-      <form @submit.prevent="login" class="mt-8 space-y-6" action="#">
+      <form @submit.prevent="submitLogin" class="mt-8 space-y-6" action="#">
         <input type="hidden" name="remember" value="true" />
         <div class="rounded-md shadow-sm -space-y-px">
           <div>
@@ -98,17 +98,16 @@
           </button>
         </div>
       </form>
-      
     </div>
+    <!-- <div>{{user}}</div> -->
   </div>
 </template>
 
 <script>
-// import {mapActions} from 'vuex';
-import axios from "axios";
-axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "http://localhost:8000/";
-axios.defaults.accept = "application/json";
+// import { mapState } from "vuex";
+// import axios from 'axios';
+// axios.defaults.baseURL = "http://localhost:8000/";
+
 export default {
   name: "Login",
 
@@ -118,37 +117,32 @@ export default {
         email: "",
         password: "",
       },
+      user: null,
     };
   },
-
-  // methods: {
-  //   ...mapActions({
-  //     signIn: 'auth/signIn'
+  // computed: {
+  //   ...mapState({
+  //     user: "user",
   //   }),
-
-  //   async login () {
-  //     await this.signIn(this.form)
-
-  //     this.$router.replace({ name: 'home' })
-  //   }
-
-  //   }
-
+  // },
   methods: {
-    login() {
-      axios.get("/sanctum/csrf-cookie").then(() => {
-        
-        axios
-          .post("/login", {
-            email: 'admin@admin.com',
-            password: 'password',
-          })
-          .then(() => {
-            
-           this.$router.push({name: 'home'});
-            
-          });
-      });
+    submitLogin() {
+      // this.loginError = false;
+      // axios
+      //   .post("/api/auth/login", {
+      //     email: this.email,
+      //     password: this.password,
+      //   })
+      //   .then((response) => {
+      //     // login user, store the token and redirect to dashboard
+      //     this.$store.commit("loginUser");
+      //     localStorage.setItem("token", response.data.access_token);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error)
+      //     this.loginError = true;
+      //   });
+      console.log('ok');
     },
   },
 };

@@ -1,23 +1,12 @@
+import Vue from "vue";
 
-import Vue from 'vue'
+import store from "./Store/store";
 
-import store from './Store/store';
+import router from "./router";
+import App from "./App.vue";
 
-import router from './router';
-import App from './App.vue';
-
-import axios from 'axios';
-axios.defaults.withCredentials = true
-axios.defaults.baseURL = 'http://localhost:8000/';
-
-
-
-
-
-
-  new Vue({
+new Vue({
     router,
     store,
     render: h => h(App)
-  }).$mount('#app')
-
+}).$mount("#app");

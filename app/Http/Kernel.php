@@ -2,9 +2,8 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\Cors;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
-use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
+
 
 class Kernel extends HttpKernel
 {
@@ -39,11 +38,11 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            EnsureFrontendRequestsAreStateful::class,
+           
         ],
 
         'api' => [
-            EnsureFrontendRequestsAreStateful::class,
+           
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],

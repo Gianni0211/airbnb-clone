@@ -1,59 +1,37 @@
-import axios from "axios";
-axios.defaults.withCredentials = true
-axios.defaults.baseURL = 'http://localhost:8000/';
-axios.defaults.accept = 'application/json'
+// import axios from "axios";
+// axios.defaults.withCredentials = true;
+// axios.defaults.baseURL = "http://localhost:8000/";
+// axios.defaults.accept = "application/json";
 
-export default {
-    namespaced: true,
-
-    state: {
-        authenticated: false,
-        user: null
-    },
-
-    getters: {
-        authenticated(state) {
-            return state.authenticated;
-        },
-
-        user(state) {
-            return state.user;
-        }
-    },
-
-    mutations: {
-        SET_AUTHENTICATED(state, value) {
-            state.authenticated = value;
-        },
-
-        SET_USER(state, value) {
-            
-            state.user = value;
-        }
-    },
-
-    actions: {
-        async signIn({ dispatch }, credentials) {
-            await axios.get("/sanctum/csrf-cookie");
-            await axios.post("/login", credentials);
-
-            return dispatch("me");
-        },
-
-        async signOut({ dispatch }) {
-            await axios.post("/logout");
-
-            return dispatch("me");
-        },
-        me ({ commit }) {
-            return axios.get('/api/user').then((response) => {
-                console.log(response);
-              commit('SET_AUTHENTICATED', true)
-              commit('SET_USER', response.data)
-            }).catch(() => {
-              commit('SET_AUTHENTICATED', false)
-              commit('SET_USER', null)
-            })
-          }
-    }
-};
+// export default {
+//     namespaced: true,
+//     state: {
+//         isLoggedIn: !!localStorage.getItem("token"),
+//         user: null
+//     },
+//     mutations: {
+//         loginUser(state) {
+//             state.isLoggedIn = true;
+//         },
+//         logoutUser(state) {
+//             state.isLoggedIn = false;
+//         },
+//         SET_USER(state, value) {
+//             state.user = value;
+//         }
+//     },
+//     actions: {
+//         me({ commit }) {
+//             axios
+//                 .post("/api/me", {
+//                     headers: {
+//                         Authorization: "Bearer " + localStorage.getItem("token")
+//                     }
+//                 })
+//                 .then(response => {
+//                     console.log(response);
+//                     commit('SET_USER', response.data)
+//                 });
+//         }
+//     }
+// };
