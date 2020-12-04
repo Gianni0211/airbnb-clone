@@ -99,14 +99,14 @@
         </div>
       </form>
     </div>
-    <!-- <div>{{user}}</div> -->
+    <div>{{user}}</div>
   </div>
 </template>
 
 <script>
-// import { mapState } from "vuex";
-// import axios from 'axios';
-// axios.defaults.baseURL = "http://localhost:8000/";
+import { mapState,  mapMutations, mapActions } from "vuex";
+import axios from 'axios';
+axios.defaults.baseURL = "http://localhost:8000/";
 
 export default {
   name: "Login",
@@ -117,32 +117,37 @@ export default {
         email: "",
         password: "",
       },
-      user: null,
+      
     };
   },
-  // computed: {
-  //   ...mapState({
-  //     user: "user",
-  //   }),
-  // },
+  computed: {
+    ...mapState({
+      user: "user",
+    }),
+  },
   methods: {
+    ...mapMutations(['loginUser']),
+    ...mapActions(['me']),
     submitLogin() {
-      // this.loginError = false;
-      // axios
-      //   .post("/api/auth/login", {
-      //     email: this.email,
-      //     password: this.password,
-      //   })
-      //   .then((response) => {
-      //     // login user, store the token and redirect to dashboard
-      //     this.$store.commit("loginUser");
-      //     localStorage.setItem("token", response.data.access_token);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error)
-      //     this.loginError = true;
-      //   });
-      console.log('ok');
+      this.loginError = false;
+      axios
+        .post("/api/auth/login", {
+          email: this.form.email,
+          password: this.form.password,
+        })
+        .then((response) => {
+          // login user, store the token and redirect to dashboard
+          // this.loginUser();
+         
+          localStorage.setItem("token", response.data.access_token);
+           this.me();
+        })
+        .catch((error) => {
+          console.log(error)
+          
+          this.loginError = true;
+        });
+      
     },
   },
 };
