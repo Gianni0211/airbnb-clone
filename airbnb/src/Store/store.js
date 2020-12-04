@@ -52,15 +52,19 @@ export default new Vuex.Store({
                 state.categories.push(category);
             });
         },
-        loginUser(state) {
+        loginUser(state,response) {
+          localStorage.setItem("token", response.data.access_token);
             state.isLoggedIn = true;
         },
         logoutUser(state) {
-            state.isLoggedIn = false;
+          localStorage.removeItem("token");
+          state.isLoggedIn = false;
+          state.user = null;
         },
         SET_USER(state, value) {
             state.user = value;
-        }
+        },
+        
     },
     actions: {
         async fetchCategory(context) {

@@ -13,7 +13,8 @@ export default {
         loginUser(state) {
             state.isLoggedIn = true;
         },
-        logoutUser(state) {
+        logoutUser(state,response) {
+            localStorage.setItem("token", response.data.access_token);
             state.isLoggedIn = false;
         },
         SET_USER(state, value) {
