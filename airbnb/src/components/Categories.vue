@@ -39,7 +39,12 @@ computed: {
   ...mapGetters({categories : 'assets/categories'})
 },
 created(){
-  this.fetchCategory();
+
+  
+  
+    this.fetchCategory();
+  
+  
 }
 }
 </script>

@@ -19,7 +19,8 @@ export default {
         }
     },
     actions: {
-        async fetchCategory(context) {
+        async fetchCategory({commit,state}) {
+            if(state.categories.length > 0) return
             const res = await axios.get("api/get_all_categories");
             let cat = res.data.map((el) => {
                 return {
@@ -27,7 +28,7 @@ export default {
                     ...el
                 }
             })
-            context.commit("setCategory", cat);
+           commit("setCategory", cat);
         }
     }
 };

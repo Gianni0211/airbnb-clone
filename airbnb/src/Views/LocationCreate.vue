@@ -175,7 +175,7 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
 export default {
   name: "LocationCreate",
@@ -194,9 +194,9 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["fetchCategory"]),
+    ...mapActions({fetchCategory :"assets/fetchCategory"}),
     async submitForm() {
-      const response = await axios.post("api/location/store", { ...this.form, user : this.user });
+      const response = await axios.post("api/location/store", { ...this.form, user : this.user.id });
       console.log(response);
     },
   },
@@ -204,11 +204,10 @@ export default {
     this.fetchCategory();
   },
   computed: {
-    ...mapState({
-      categories: "categories",
-    }),
+  
     ...mapGetters({
       user : 'auth/user',
+      categories : 'assets/categories'
     })
   },
 };
