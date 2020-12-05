@@ -40,7 +40,7 @@ class HostController extends Controller
             'price' => $request->input('price'),
             'guest_number' => $request->input('guest'),
             'place_id' => 1,
-            'user_id' => Auth::user()->id,
+            'user_id' => $request->input('user'),
             'subtitle' => 'Il sottotitolo',
             'category_id' => $request->input('category')
 

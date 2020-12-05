@@ -1,30 +1,34 @@
 <template>
   <div
-    class="flex flex-col h-20 z-50 w-full fixed  transition duration-300"
+    class="flex flex-col h-20 z-50 w-full fixed transition duration-300"
     v-on-clickaway="closeSearchBox"
-    :class="{ 'bg-white text-black shadow': scrollPosition > 50 || searchBox , 'text-white': scrollPosition < 50}"
-
+    :class="{
+      'bg-white text-black shadow': scrollPosition > 50 || searchBox,
+      'text-white': scrollPosition < 50 && this.$route.name == 'home',
+      'shadow': this.$route.name != 'home',
+    }"
   >
     <nav
       class="navbar container-xl lg:px-40 p-10 pb-0 pt-5 relative"
       :class="{ 'h-48': searchBox }"
     >
-    <router-link to="/">
-      <img
-        src="@/assets/images/logo.svg"
-        alt="logo"
-        class="w-10 h-10 justify-self-start hidden md:block"
-      />
+      <router-link to="/">
+        <img
+          src="@/assets/images/logo.svg"
+          alt="logo"
+          class="w-10 h-10 justify-self-start hidden md:block"
+        />
       </router-link>
       <div v-if="searchBox">
-        <div class="tabs inline-block self-end">
+        <div class="tabs inline-block self-end  text-black">
           <ul class="flex items-center justify-center">
             <li class="hover:border-b hover:border-black mr-8">
               <a href="#">Alloggi</a>
             </li>
             <li class="hover:border-bottom mr-8">
-              <a href="#">Esperienze
-                {{user}}
+              <a href="#"
+                >Esperienze
+                
               </a>
             </li>
             <li class="hover:border-bottom">
@@ -45,7 +49,7 @@
           inizia la ricerca
         </div>
         <div
-          class="absolute right-2 rounded-full h-8 w-8 bg-red-500 focus:outline-none flex justify-center items-center"
+          class="absolute right-2 rounded-full h-8 w-8 bg-air-500 focus:outline-none flex justify-center items-center"
         >
           <i class="fa fa-search text-white"></i>
         </div>
@@ -53,19 +57,18 @@
 
       <ul class="style-none md:flex justify-between hidden">
         <li class="flex justify-center items-center mr-5 relative">
-          
-          <a href="/host/request"
-            
-            
+          <a
+            href="/host/request"
             class="hover-link py-2 px-5 rounded-full"
             :class="{ 'bg-hover': scrollPosition > 50 || searchBox }"
-            >Diventa un host</a>
-          <router-link to="/location/create"
-            
-            
+            >Diventa un host</a
+          >
+          <router-link
+            to="/location/create"
             class="hover-link py-2 px-5 rounded-full"
             :class="{ 'bg-hover': scrollPosition > 50 || searchBox }"
-            >Aggiungi il tuo spazio</router-link>
+            >Aggiungi il tuo spazio</router-link
+          >
         </li>
         <li class="mr-5 flex justify-center items-center relative">
           <a href=""
@@ -81,9 +84,9 @@
         >
           <i class="fas fa-bars left-3 absolute"></i>
           <img
-            src="https://a0.muscache.com/defaults/user_pic-50x50.png?v=3"
+            :src="profilePic"
             alt="profile-pic"
-            class="rounded-full w-8 ml-2 absolute right-2"
+            class="rounded-full w-8 h-8 ml-2 absolute right-2"
           />
         </li>
       </ul>
@@ -102,7 +105,7 @@
 import { directive as onClickaway } from "vue-clickaway";
 import SearchBar from "../components/SearchBar";
 import UserModal from "../components/UserModal";
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "nav-bar",
@@ -115,10 +118,19 @@ export default {
       searchBox: false,
       scrollPosition: null,
       userOptions: false,
+      
     };
   },
   computed: {
-    ...mapState({ user: "user" }),
+    ...mapGetters({ user: "auth/user" }),
+    profilePic : function(){
+      if(!this.user){
+        return "https://a0.muscache.com/defaults/user_pic-50x50.png?v=3"
+      }
+      else {
+        return this.user.profile_photo_path
+      }
+    }
   },
 
   methods: {
@@ -192,3 +204,4 @@ export default {
   transform: translateX(0px), scale(1);
 }
 </style>
+

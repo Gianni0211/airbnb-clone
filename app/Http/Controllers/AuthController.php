@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -15,7 +16,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','register']]);
     }
 
     /**
@@ -33,6 +34,21 @@ class AuthController extends Controller
 
         return $this->respondWithToken($token);
     }
+
+    public function register(Request $request)
+    {
+        
+
+        $user = User::create([
+            "name" => $request->input('name'),
+            "email" => $request->input('name'),
+            "password" => bcrypt($request->input('name')),
+        ]);
+        $token = auth()->login($user);
+
+        return $this->respondWithToken($token);
+    }
+
 
     /**
      * Get the authenticated User.
@@ -65,6 +81,7 @@ class AuthController extends Controller
     {
         return $this->respondWithToken(auth()->refresh());
     }
+    
 
     /**
      * Get the token array structure.
@@ -81,4 +98,6 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
     }
+    
+    
 }
