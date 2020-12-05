@@ -1,7 +1,4 @@
 import axios from "axios";
-axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "http://localhost:8000/";
-axios.defaults.accept = "application/json";
 
 export default {
     namespaced: true,
@@ -9,13 +6,24 @@ export default {
         isLoggedIn: !!localStorage.getItem("token"),
         user: null
     },
+    getters: {
+        authenticated(state) {
+            return state.authenticated;
+        },
+
+        user(state) {
+            return state.user;
+        }
+    },
     mutations: {
-        loginUser(state) {
+        loginUser(state, response) {
+            localStorage.setItem("token", response.data.access_token);
             state.isLoggedIn = true;
         },
-        logoutUser(state,response) {
-            localStorage.setItem("token", response.data.access_token);
+        logoutUser(state) {
+            localStorage.removeItem("token");
             state.isLoggedIn = false;
+            state.user = null;
         },
         SET_USER(state, value) {
             state.user = value;
@@ -30,8 +38,8 @@ export default {
                     }
                 })
                 .then(response => {
-                    console.log(response);
-                    commit('SET_USER', response.data)
+                   
+                    commit("SET_USER", response.data);
                 });
         }
     }

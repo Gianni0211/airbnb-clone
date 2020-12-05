@@ -18,9 +18,9 @@
 <script>
 import CardGrid from './ExperienceSection/CardGrid';
 import CardCarousel from './ExperienceSection/CardCarousel';
-import axios from 'axios';
-axios.defaults.withCredentials = true
-axios.defaults.baseURL = 'http://localhost:8000/';
+
+import { mapActions, mapGetters } from 'vuex';
+
 
 export default {
 name: 'Categories',
@@ -29,21 +29,17 @@ components:{
  CardCarousel
  
 },
-data(){
-  return {
-    categories: []
-  }
-},
+
 methods: {
-  
+  ...mapActions({
+    fetchCategory : 'assets/fetchCategory'
+  })
+},
+computed: {
+  ...mapGetters({categories : 'assets/categories'})
 },
 created(){
-  axios.get('api/get_all_categories').then((res) => {
-      this.categories = res.data;
-      
-    }).catch((err) => {
-      console.log(err);
-    });
+  this.fetchCategory();
 }
 }
 </script>

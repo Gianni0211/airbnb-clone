@@ -1,8 +1,8 @@
 <template>
   <div
-    class="flex flex-col h-20 z-50 w-full fixed text-white transition duration-300"
+    class="flex flex-col h-20 z-50 w-full fixed  transition duration-300"
     v-on-clickaway="closeSearchBox"
-    :class="{ 'bg-white text-black shadow': scrollPosition > 50 || searchBox }"
+    :class="{ 'bg-white text-black shadow': scrollPosition > 50 || searchBox , 'text-white': scrollPosition < 50}"
 
   >
     <nav
