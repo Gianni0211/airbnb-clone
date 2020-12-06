@@ -134,8 +134,12 @@ export default {
          
          
            this.me();
-
-           this.$router.push({name: 'home'});
+            if(this.$router.from == this.$route.query.to ) {
+              this.$router.go(-1);
+            }else{
+              
+              this.$router.replace(this.$route.query.to);
+            }
         })
         .catch((error) => {
           console.log(error)

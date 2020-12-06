@@ -16,7 +16,7 @@ const routes = [
     {
         path: "/",
         component: Home,
-        name: "home"
+        name: "Home"
     },
     {
         path: "/location/create",
@@ -56,13 +56,16 @@ const routes = [
 const router = new VueRouter({ mode: "history", routes });
 
 router.beforeEach((to, _, next) => {
-    if (to.meta.needsAuth) {
-        const isLoggedIn = store.state.auth.isLoggedIn;
-        if (!isLoggedIn) next({ name: "Login" });
-        else next();
+    const isLoggedIn = store.state.auth.isLoggedIn;
+    if (to.meta.needsAuth && !isLoggedIn) {
+        const currentTo = to.path;
+        console.log(currentTo);
+        next({ name: "Login" , query: {to: currentTo}});
+    }else{
+        next();
     }
 
-    next();
+    
 });
 
 export default router;
