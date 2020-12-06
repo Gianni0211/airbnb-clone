@@ -5,7 +5,7 @@
     <ul class="">
       <div v-if="authenticated">
         <li>
-          <a @click.prevent="logout" href="#" class="hover:bg-gray-100 block p-3 text-sm"
+          <a @click.prevent="signout" href="#" class="hover:bg-gray-100 block p-3 text-sm"
             >SignOut</a
           >
         </li>
@@ -54,7 +54,12 @@ export default {
   methods: {
     ...mapActions({
       logout : 'auth/logoutUser',
-    })
+    }),
+
+    signout () {
+      this.logout();
+      this.$router.push({name: 'Home'});
+    }
   }
 };
 </script>

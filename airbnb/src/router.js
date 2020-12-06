@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import store from './Store/store';
+import store from "./Store/store";
 
 //Pagine
 import Home from "./Views/Home";
@@ -22,10 +22,13 @@ const routes = [
         path: "/location/create",
         component: LocationCreate,
         name: "location.create",
-        beforeEnter: (to,from,next) => {
-            const isLoggedIn = store.state.auth.isLoggedIn  
-            if(!isLoggedIn) next ({name: 'Login'})
-            else next()
+        // beforeEnter: (to, from, next) => {
+        //     const isLoggedIn = store.state.auth.isLoggedIn;
+        //     if (!isLoggedIn) next({ name: "Login" });
+        //     else next();
+        // }
+        meta: {
+            needsAuth : true
         }
     },
     {
@@ -47,12 +50,19 @@ const routes = [
         path: "/Show/:id",
         component: Show,
         name: "location.show"
-    },
-
+    }
 ];
 
 const router = new VueRouter({ mode: "history", routes });
 
+router.beforeEach((to, _, next) => {
+    if (to.meta.needsAuth) {
+        const isLoggedIn = store.state.auth.isLoggedIn;
+        if (!isLoggedIn) next({ name: "Login" });
+        else next();
+    }
 
+    next();
+});
 
 export default router;
