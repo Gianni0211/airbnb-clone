@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
-use App\Http\Controllers\HostController;
+use App\Http\Controllers\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,10 +40,15 @@ Route::group([
 
 ], function ($router) {
 
-    Route::post('store', [HostController::class, 'store'])->name('location.store');
+    Route::post('store', [LocationController::class, 'store'])->name('location.store');
+    Route::get('index', [LocationController::class, 'index'])->name('location.index');
+    Route::get('show/{location}', [LocationController::class, 'show'])->name('location.show');
+    Route::delete('delete/{location}', [LocationController::class, 'destroy'])->name('location.delete');
 });
 
 Route::get('/get_all_categories', [DataController::class, 'fetchCategories']);
+
+
 // Route::get('/search_place', [DataController::class, 'getPlace']);
 // Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 //     Route::get('/host/request', [HostController::class, 'request'])->name('host.request');

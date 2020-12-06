@@ -12,8 +12,6 @@ import App from "./App.vue";
 
 
 store.dispatch("auth/me").then(() => {
-    
-
     new Vue({
         router,
         store,

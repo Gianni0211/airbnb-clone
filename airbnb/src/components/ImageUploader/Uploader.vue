@@ -81,7 +81,7 @@ export default {
       console.log(this.fileToUpload[0]);
       //reset the image to upload so the user can't upload the same image more than once
       
-      this.$emit('uploaded', {images: this.previewImages, results :null}),
+      this.$emit('uploaded'),
       this.previewImages = [];
       this.selectedFile = [];
     },

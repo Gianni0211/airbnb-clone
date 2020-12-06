@@ -32,20 +32,6 @@ class HostController extends Controller
     {
         return Inertia::render('views/LocationCreate');
     } */
-    public function store(Request $request)
-    {
-      $loc=  Location::create([
-            'name' => $request->input('title'),
-            'description' => $request->input('description'),
-            'price' => $request->input('price'),
-            'guest_number' => $request->input('guest'),
-            'place_id' => 1,
-            'user_id' => $request->input('user'),
-            'subtitle' => 'Il sottotitolo',
-            'category_id' => $request->input('category')
-
-        ]);
-        return response()->json($loc);
-    }
+   
 
 }

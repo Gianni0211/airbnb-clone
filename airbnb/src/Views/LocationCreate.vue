@@ -160,6 +160,7 @@ export default {
     ...mapActions({fetchCategory :"assets/fetchCategory"}),
     async submitForm() {
       const response = await axios.post("api/location/store", { ...this.form, user : this.user.id });
+      this.$router.push({name: 'home'});
       console.log(response);
     },
   },
