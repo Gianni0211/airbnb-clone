@@ -8,7 +8,7 @@ export default {
     },
     getters: {
         authenticated(state) {
-            return state.authenticated;
+            return state.isLoggedIn;
         },
 
         user(state) {

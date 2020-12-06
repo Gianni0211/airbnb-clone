@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from './Store/store';
 
 //Pagine
 import Home from "./Views/Home";
@@ -20,7 +21,13 @@ const routes = [
     {
         path: "/location/create",
         component: LocationCreate,
-        name: "location.create"
+        name: "location.create",
+        beforeEnter: (to,from,next) => {
+            const isLoggedIn = store.state.auth.isLoggedIn  
+            if(!isLoggedIn) next ({name: 'Login'})
+            else next()
+            
+        }
     },
     {
         path: "/SingIn",
@@ -46,5 +53,7 @@ const routes = [
 ];
 
 const router = new VueRouter({ mode: "history", routes });
+
+
 
 export default router;

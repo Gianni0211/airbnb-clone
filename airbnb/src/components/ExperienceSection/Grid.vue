@@ -1,10 +1,10 @@
 <template>
 <div class="grid-container">
-  <div class="A"><card-grid/></div>
+  <div class="A"><card-grid :text="topFour[0].name"/></div>
   <div class="B">
-    <div class="B1"><card-grid/></div>
-    <div class="B2"><card-grid/></div>
-    <div class="C"><card-grid/></div>
+    <div class="B1"><card-grid :text="topFour[1].name"/></div>
+    <div class="B2"><card-grid :text="topFour[2].name"/></div>
+    <div class="C"><card-grid :text="topFour[3].name"/></div>
   </div>
 </div>
 </template>
@@ -14,6 +14,13 @@
 import CardGrid from './CardGrid.vue';
 export default {
 name: 'Grid',
+props : {
+  topFour: {
+    type: Array,
+    required : false,
+
+  }
+},
 components: {
  CardGrid
 },
