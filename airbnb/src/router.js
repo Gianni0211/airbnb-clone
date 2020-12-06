@@ -6,6 +6,8 @@ import Home from "./Views/Home";
 import LocationCreate from "./Views/LocationCreate.vue";
 import Login from "./Views/Login";
 import Register from "./Views/Register";
+import Index from "./Views/Index";
+import Show from "./Views/Show";
 
 Vue.use(VueRouter);
 
@@ -29,7 +31,18 @@ const routes = [
         path: "/Register",
         component: Register,
         name: "Register"
-    }
+    },
+    {
+        path: "/Index",
+        component: Index,
+        name: "location.index"
+    },
+    {
+        path: "/Show/:id",
+        component: Show,
+        name: "location.show"
+    },
+
 ];
 
 const router = new VueRouter({ mode: "history", routes });
