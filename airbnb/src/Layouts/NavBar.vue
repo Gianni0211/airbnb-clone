@@ -79,7 +79,7 @@
           ></a>
         </li>
         <li
-          class="h-10 w-20 px-5 py-5 rounded-full flex justify-around items-center border border-gray-300 relative hover:shadow-md bg-white text-black"
+          class="h-10 w-20 px-5 py-5 rounded-full flex justify-around items-center border border-gray-300 relative hover:shadow-md bg-white text-black self-center"
           @click="togleUserModal"
         >
           <i class="fas fa-bars left-3 absolute"></i>

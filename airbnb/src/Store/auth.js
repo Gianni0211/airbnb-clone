@@ -20,7 +20,7 @@ export default {
             localStorage.setItem("token", response.data.access_token);
             state.isLoggedIn = true;
         },
-        logoutUser(state) {
+        LOGOUT_USER(state) {
             localStorage.removeItem("token");
             state.isLoggedIn = false;
             state.user = null;
@@ -38,9 +38,23 @@ export default {
                     }
                 })
                 .then(response => {
-                   
                     commit("SET_USER", response.data);
                 });
+        },
+        logoutUser({commit}) {
+          
+                axios
+                    .post("/api/auth/logout", '',{
+                        headers: {
+                            Authorization:
+                                "Bearer " + localStorage.getItem("token"),
+                            
+                        }
+                    })
+                    .then(()=> {
+                        commit("LOGOUT_USER");
+                    })
+            
         }
     }
 };

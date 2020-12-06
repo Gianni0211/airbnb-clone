@@ -26,7 +26,6 @@ const routes = [
             const isLoggedIn = store.state.auth.isLoggedIn  
             if(!isLoggedIn) next ({name: 'Login'})
             else next()
-            
         }
     },
     {
