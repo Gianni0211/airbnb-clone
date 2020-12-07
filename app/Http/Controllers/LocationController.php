@@ -25,9 +25,29 @@ class LocationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $locations = Location::all();
+        if(count($request->query()) === 0){
+
+            $locations = Location::all();
+        }
+        else{
+
+            $post_code = $request->query('l');
+            $in = $request->query('in','2020-11-03');
+            $out = $request->query('out','2020-11-06');
+            $q = $request->query('q');
+
+            $locations = Location::all()->filter(function($loc)use ($post_code){
+                return $loc->place->post_code == $post_code;
+                
+
+            })->filter(function($loc)use($in,$out){
+                return $loc->isAvailable($in, $out);
+            });
+
+
+        }
         return new LocationResource($locations);
     }
 

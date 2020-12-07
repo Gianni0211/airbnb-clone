@@ -16,13 +16,27 @@ export default {
   }
  },
  mounted(){
+  
+  if(this.$route.query){
+    axios.get('/api/location/index', {params:{...this.$route.query}}).then(res => {
+      console.log(res.data);
+      
+    res.data.data.forEach(loc => {
+     this.locations.push(loc);
+    });
+    })
 
-  axios.get('/api/location/index').then(res => {
-  res.data.data.forEach(loc => {
-   this.locations.push(loc);
-  });
-  })
- }
+  }
+  else {
+    axios.get('/api/location/index').then(res => {
+    res.data.data.forEach(loc => {
+     this.locations.push(loc);
+    });
+    })
+
+  }
+ },
+ 
 
  
 

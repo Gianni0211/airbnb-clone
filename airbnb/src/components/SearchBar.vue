@@ -73,7 +73,7 @@
 
 <script>
 import _ from 'lodash';
-import axios from 'axios';
+
 import { directive as onClickaway } from "vue-clickaway";
 import PlaceInput from "./PlaceInput";
 export default {
@@ -110,16 +110,9 @@ export default {
     },
     async search() {
       let post_code = this.q.post_code;
-      try {
-        let res = await axios.get(`/search_place`, {
-          params: {
-            post_code,
-          },
-        });
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-      }
+      this.$router.push({name: 'location.index', query: {
+        'l': post_code,
+      }})
     },
   },
   directives: {
