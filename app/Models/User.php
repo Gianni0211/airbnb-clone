@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Location;
+use App\Models\Reservation;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -73,6 +74,6 @@ class User extends Authenticatable implements JWTSubject
 
     public function reservations()
     {
-        return $this->belongsToMany(Location::class , 'reservations')->withPivot('check_in', 'check_out');
+        return $this->belongsToMany(Location::class,'reservations')->using(Reservation::class)->withPivot(['check_in', 'check_out']);
     }
 }
