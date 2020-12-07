@@ -4,8 +4,8 @@
     v-on-clickaway="closeSearchBox"
     :class="{
       'bg-white text-black shadow': scrollPosition > 50 || searchBox,
-      'text-white': scrollPosition < 50 && this.$route.name == 'home',
-      'shadow': this.$route.name != 'home',
+      'text-white': scrollPosition < 50 && this.$route.name == 'Home',
+      'shadow': this.$route.name != 'Home',
     }"
   >
     <nav

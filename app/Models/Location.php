@@ -25,6 +25,9 @@ class Location extends Model
         return $this->belongsTo(Place::class);
     }
 
-
+    public function reservations()
+    {
+        return $this->belongsToMany(User::class , 'reservations')->withPivot('check_in', 'check_out');
+    }
 
 }

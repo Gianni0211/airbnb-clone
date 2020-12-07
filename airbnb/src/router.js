@@ -59,7 +59,7 @@ router.beforeEach((to, _, next) => {
     const isLoggedIn = store.state.auth.isLoggedIn;
     if (to.meta.needsAuth && !isLoggedIn) {
         const currentTo = to.path;
-        console.log(currentTo);
+        
         next({ name: "Login" , query: {to: currentTo}});
     }else{
         next();
