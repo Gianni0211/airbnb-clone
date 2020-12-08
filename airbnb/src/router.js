@@ -44,6 +44,7 @@ const routes = [
     {
         path: "/Index",
         component: Index,
+        
         name: "location.index"
     },
     {

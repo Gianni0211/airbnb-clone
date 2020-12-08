@@ -27,26 +27,21 @@ class LocationController extends Controller
      */
     public function index(Request $request)
     {
-        if(count($request->query()) === 0){
+        if (!count($request->query())) {
 
             $locations = Location::all();
-        }
-        else{
+        } else {
 
             $post_code = $request->query('l');
-            $in = $request->query('in','2020-11-03');
-            $out = $request->query('out','2020-11-06');
+            $in = $request->query('in', '2020-11-03');
+            $out = $request->query('out', '2020-11-06');
             $q = $request->query('q');
 
-            $locations = Location::all()->filter(function($loc)use ($post_code){
+            $locations = Location::all()->filter(function ($loc) use ($post_code) {
                 return $loc->place->post_code == $post_code;
-                
-
-            })->filter(function($loc)use($in,$out){
+            })->filter(function ($loc) use ($in, $out) {
                 return $loc->isAvailable($in, $out);
             });
-
-
         }
         return new LocationResource($locations);
     }
@@ -109,8 +104,7 @@ class LocationController extends Controller
         if (auth()->user() == $location->user) {
             $location->delete();
             return response()->json(['succes' => true, 'message' => 'Resource delete successfully'], 200);
-        } else {
-            return response()->json(['succes' => false, 'message' => 'unauthorized'], 401);
         }
+        return response()->json(['succes' => false, 'message' => 'unauthorized'], 401);
     }
 }
