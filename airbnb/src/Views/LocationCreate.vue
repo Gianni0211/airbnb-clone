@@ -118,7 +118,7 @@
             </div>
           </div>
 
-          <ImageUploader></ImageUploader>
+          <ImageUploader @uploaded="upload"></ImageUploader>
         </div>
         <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
           <button
@@ -153,22 +153,35 @@ export default {
         price: null,
         address: null,
         category: null,
+        images: [],
       },
     };
   },
   methods: {
     ...mapActions({ fetchCategory: "assets/fetchCategory" }),
     async submitForm() {
-      const response = await axios.post("api/location/store", {
-        ...this.form,
-        user: this.user.id,
-      });
-      this.$router.push({ name: "home" });
+      const response = await axios.post(
+        "api/location/store",
+        {
+          ...this.form,
+          user: this.user.id,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      );
       console.log(response);
+      this.$router.push({ name: "home" });
+    },
+    upload(event) {
+      this.form.images = event.images;
     },
   },
   created: function () {
     this.fetchCategory();
+    console.log(this.user);
   },
   computed: {
     ...mapGetters({

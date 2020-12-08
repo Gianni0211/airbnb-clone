@@ -1,7 +1,12 @@
 <template>
   <div class="container-xl px-8">
     <div v-for="location in locations" :key="location.id" class="mr-5 h-64 flex items-center  border-t">
-      <div class="mr-20"><img src="../assets/logo.png" alt=""></div>
+      <div class="mr-20 overflow-x-auto whitespace-nowrap w-64 h-48 carousel-container shadow rounded-xl"
+      @click="onScroll"
+      >
+        <img v-if="location.images.length == 0" src="https://via.placeholder.com/200x300" alt="w-full h-full">
+        <img v-for="image in location.images" :key="image.id" :src="image.file" alt="" class="inline-block w-full h-full">
+        </div>
       <div class="self-start mt-10"> 
         <p class="text-sm text-gray-400 ">{{location.subtitle}}</p>
         <h2 class="text-xl">{{ location.name }}</h2>
@@ -36,6 +41,12 @@ export default {
         });
       }
     },
+
+    onScroll (e) {
+      const elementoScrollato = e.target.closest("div");
+      elementoScrollato.scrollLeft += +e.target.offsetWidth
+     
+    }
   },
   mounted() {
     this.fetchData();
@@ -50,4 +61,8 @@ export default {
 </script>
 
 <style>
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
 </style>
