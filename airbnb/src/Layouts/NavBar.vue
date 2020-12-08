@@ -1,12 +1,13 @@
 <template>
   <div
-    class="flex flex-col h-20 z-50 w-full fixed transition duration-300"
+    class="flex flex-col h-20 z-50 w-full transition duration-300 bg-transparent  "
     v-on-clickaway="closeSearchBox"
     :class="{
-      'bg-white text-black shadow': scrollPosition > 50 || searchBox,
-      'text-white': scrollPosition < 50 && this.$route.name == 'Home',
-      'shadow': this.$route.name != 'Home',
+      'absolute top-50 text-white' : scrollPosition < 50 ,
+      ' fixed bg-white text-black shadow' : scrollPosition > 50 || searchBox,
+      'relative text-black shadow' : this.$route.name != 'Home' 
     }"
+    :style="scrollPosition < 50 && searchBox || this.$route.name != 'Home' ? 'color: black;' : ''"
   >
     <nav
       class="navbar container-xl lg:px-40 p-10 pb-0 pt-5 relative"
@@ -56,7 +57,7 @@
       </button>
 
       <ul class="style-none md:flex justify-between hidden">
-        <li class="flex justify-center items-center mr-5 relative">
+        <li v-if="!searchBox" class="flex justify-center items-center mr-5 relative">
           <a
             href="/host/request"
             class="hover-link py-2 px-5 rounded-full"
@@ -70,7 +71,7 @@
             >Aggiungi il tuo spazio</router-link
           >
         </li>
-        <li class="mr-5 flex justify-center items-center relative">
+        <li  v-if="!searchBox" class="mr-5 flex justify-center items-center relative">
           <a href=""
             ><i
               class="fas fa-globe hover-link px-4 py-3 rounded-full"

@@ -1,6 +1,6 @@
 <template>
   <div class="container-lg sm:container-xl">
-    <NavBar></NavBar>
+    <NavBar ></NavBar>
 
     <slot></slot>
 
