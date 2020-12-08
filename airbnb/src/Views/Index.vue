@@ -1,7 +1,14 @@
 <template>
-  <div>
-    <div v-for="location in locations" :key="location.id">
-      {{ location.name }}
+  <div class="container-xl px-8">
+    <div v-for="location in locations" :key="location.id" class="mr-5 h-64 flex items-center  border-t">
+      <div class="mr-20"><img src="../assets/logo.png" alt=""></div>
+      <div class="self-start mt-10"> 
+        <p class="text-sm text-gray-400 ">{{location.subtitle}}</p>
+        <h2 class="text-xl">{{ location.name }}</h2>
+        <hr class="w-10 mt-2">
+        <p class="text-sm text-gray-400 ">{{location.description}}</p>
+        </div>
+     
     </div>
   </div>
 </template>

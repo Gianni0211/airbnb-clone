@@ -137,7 +137,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
-import ImageUploader from '@/components/ImageUploader/Uploader'
+import ImageUploader from "@/components/ImageUploader/Uploader";
 export default {
   name: "LocationCreate",
   components: {
@@ -157,10 +157,13 @@ export default {
     };
   },
   methods: {
-    ...mapActions({fetchCategory :"assets/fetchCategory"}),
+    ...mapActions({ fetchCategory: "assets/fetchCategory" }),
     async submitForm() {
-      const response = await axios.post("api/location/store", { ...this.form, user : this.user.id });
-      this.$router.push({name: 'home'});
+      const response = await axios.post("api/location/store", {
+        ...this.form,
+        user: this.user.id,
+      });
+      this.$router.push({ name: "home" });
       console.log(response);
     },
   },
@@ -168,11 +171,10 @@ export default {
     this.fetchCategory();
   },
   computed: {
-  
     ...mapGetters({
-      user : 'auth/user',
-      categories : 'assets/categories'
-    })
+      user: "auth/user",
+      categories: "assets/categories",
+    }),
   },
 };
 </script>
