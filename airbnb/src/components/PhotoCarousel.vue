@@ -1,10 +1,13 @@
 <template>
-  <div class="flex mr-20 px-10 relative"  @mouseenter="togleArrows"
-        @mouseleave="togleArrows">
-    <button v-if="arrows" @click="onScroll($event, 'left')" class=" absolute left-5 top-20 arrows"><i class="fas fa-chevron-left"></i></button>
+  <div class="flex mr-20 px-10 relative container">
+    <button
+      @click="onScroll($event, 'left')"
+      class="absolute left-5 top-20 arrows focus:outline-none"
+    >
+      <i class="fas fa-chevron-left"></i>
+    </button>
     <div
-      class=" overflow-x-auto whitespace-nowrap w-64 h-48 carousel-container shadow rounded-xl mx-auto"
-      
+      class="overflow-x-auto whitespace-nowrap w-64 h-48 carousel-container shadow rounded-xl mx-auto"
     >
       <img
         v-for="image in photos"
@@ -12,11 +15,15 @@
         :src="image.file"
         alt=""
         class="inline-block w-full h-full"
-       
       />
     </div>
 
-    <button v-if="arrows" @click="onScroll($event,'right')" class=" absolute right-5 top-20 arrows"><i class="fas fa-chevron-right"></i></button>
+    <button
+      @click="onScroll($event, 'right')"
+      class="absolute right-5 top-20 arrows focus:outline-none"
+    >
+      <i class="fas fa-chevron-right"></i>
+    </button>
   </div>
 </template>
 
@@ -34,12 +41,7 @@ export default {
       default: "https://via.placeholder.com/200x300",
     },
   },
-  data (){
-      return {
-          arrows: false,
-          scrolled : null
-      }
-  },
+
   computed: {
     photos: function () {
       if (this.images.length == 0) {
@@ -51,28 +53,28 @@ export default {
   methods: {
     onScroll(e, direction) {
       const elementoScrollato = e.target.closest("div").children[1];
-     if(direction == 'left'){
+      if (direction == "left") {
         elementoScrollato.scrollLeft -= elementoScrollato.offsetWidth;
-     }else if(direction == 'right'){
-         elementoScrollato.scrollLeft += elementoScrollato.offsetWidth;
-     }
+      } else if (direction == "right") {
+        elementoScrollato.scrollLeft += elementoScrollato.offsetWidth;
+      }
     },
-    togleArrows() {
-        this.arrows = !this.arrows;
-    },
-
   },
-  updated(){
-      console.log(this.arrows)
-  }
 };
 </script>
 
 <style scoped>
-    .carousel-container::-webkit-scrollbar {
-    display: none;
-    }
-    .arrows {
-        @apply h-10 w-10 rounded-full bg-white text-air-500 shadow-xl focus:outline-none;
-    }
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+.arrows {
+  opacity: 0;
+  transition: 0.3s;
+  @apply h-10 w-10 rounded-full bg-white text-air-500 shadow-xl ;
+}
+
+.container:hover .arrows {
+  opacity: 1;
+
+}
 </style>
