@@ -1,11 +1,11 @@
 <template>
   <div
-    class="flex flex-col h-20 z-50 w-full fixed transition duration-300"
+    class="flex flex-col bg-transparent fixed h-20 z-50 w-full  transition duration-300"
     v-on-clickaway="closeSearchBox"
     :class="{
-      'bg-white text-black shadow': scrollPosition > 50 || searchBox,
-      'text-white': scrollPosition < 50 && this.$route.name == 'Home',
-      'shadow': this.$route.name != 'Home',
+      'bg-white  text-black shadow': scrollPosition > 50 || searchBox,
+      'text-white fixed': scrollPosition < 50 && this.$route.name == 'Home',
+      'shadow ': this.$route.name != 'Home',
     }"
   >
     <nav
