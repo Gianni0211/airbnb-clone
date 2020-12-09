@@ -13,7 +13,7 @@
         v-show="selectedFile.length && previewImages.length"
       >
         <label for="file" class="label-file mr-7 my-auto">Add More</label>
-        <button @click="onUpload" class="upload-btn">
+        <button @click.prevent="onUpload" class="upload-btn">
           <i class="fas fa-search text-2xl my-auto"></i>
           <span class="my-auto ml-2"> Upload </span>
         </button>
@@ -60,7 +60,7 @@ import { v4 as uuidv4 } from 'uuid';
 import PreviewCard from "./PreviewCard.vue";
 
 export default {
-  name: "ImageUpload",
+  name: "ImageUploader",
   data() {
     return {
       isDragging: false,
@@ -79,11 +79,12 @@ export default {
     onUpload() {
       //TODO: upload to the server
       console.log(this.fileToUpload[0]);
+      
       //reset the image to upload so the user can't upload the same image more than once
       
-      this.$emit('uploaded'),
-      this.previewImages = [];
-      this.selectedFile = [];
+      this.$emit('uploaded', 'yolo');
+      /* this.previewImages = [];
+      this.selectedFile = []; */
     },
 
     onInput(e) {

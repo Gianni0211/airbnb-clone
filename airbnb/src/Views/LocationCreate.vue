@@ -118,7 +118,7 @@
             </div>
           </div>
 
-          <ImageUploader></ImageUploader>
+          <ImageUploader @uploaded="uploaded" ></ImageUploader>
         </div>
         <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
           <button
@@ -137,7 +137,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
-import ImageUploader from '@/components/ImageUploader/Uploader'
+import ImageUploader from "@/components/ImageUploader/Uploader";
 export default {
   name: "LocationCreate",
   components: {
@@ -153,26 +153,35 @@ export default {
         price: null,
         address: null,
         category: null,
+        img: null
       },
     };
   },
   methods: {
-    ...mapActions({fetchCategory :"assets/fetchCategory"}),
+    ...mapActions({ fetchCategory: "assets/fetchCategory" }),
     async submitForm() {
-      const response = await axios.post("api/location/store", { ...this.form, user : this.user.id });
-      this.$router.push({name: 'home'});
+      const response = await axios.post("api/location/store", {
+        ...this.form,
+        user: this.user.id,
+      });
+      this.$router.push({ name: "home" });
       console.log(response);
     },
+    uploaded(e){
+      
+      
+      console.log(e);
+
+    }
   },
   created: function () {
     this.fetchCategory();
   },
   computed: {
-  
     ...mapGetters({
-      user : 'auth/user',
-      categories : 'assets/categories'
-    })
+      user: "auth/user",
+      categories: "assets/categories",
+    }),
   },
 };
 </script>

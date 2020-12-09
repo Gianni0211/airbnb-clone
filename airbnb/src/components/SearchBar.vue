@@ -1,5 +1,5 @@
 <template>
-  <div class="main-div md:flex px-10 xl:px-0">
+  <div class="main-div md:flex px-10 xl:px-0 -mt-3 shadow ">
     <ul
       v-on-clickaway="unselect"
       class="pill-form w-full xl:w-1/2"
