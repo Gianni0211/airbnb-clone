@@ -10,7 +10,7 @@
 </template>
 
 <script>
-/* import { component } from 'vue/types/umd'; */
+
 import CardGrid from './CardGrid.vue';
 export default {
 name: 'Grid',
