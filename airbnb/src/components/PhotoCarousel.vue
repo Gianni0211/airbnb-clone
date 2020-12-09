@@ -1,13 +1,17 @@
 <template>
-    <div class="flex mr-10 px-10 relative container-photo">
+    <div class="flex  relative container-photo"
+        :class="{'mr-10 px-10': !full }"
+    >
         <button
+        
             @click.prevent="onScroll($event, 'left')"
-            class="absolute left-10 top-20 arrows focus:outline-none"
+            class="absolute left-10 top-20 arrows focus:outline-none hidden md:inline-block"
         >
             <i class="fas fa-chevron-left"></i>
         </button>
         <div
-            class="overflow-x-auto whitespace-nowrap w-80 h-48 carousel-container shadow rounded-xl mx-auto"
+            class="overflow-x-auto whitespace-nowrap  h-48 carousel-container shadow rounded-xl mx-auto"
+            :class="{'w-80': !full , 'w-full h-72' : full}"
         >
             <img
                 v-for="image in photos"
@@ -20,7 +24,9 @@
 
         <button
             @click.prevent="onScroll($event, 'right')"
-            class="absolute right-10 top-20 arrows focus:outline-none"
+            class="absolute right-10 top-20 arrows focus:outline-none
+            hidden md:inline-block
+            "
         >
             <i class="fas fa-chevron-right"></i>
         </button>
@@ -39,6 +45,10 @@ export default {
             type: String,
             required: false,
             default: "https://via.placeholder.com/200x300"
+        },
+        full: {
+            type: Boolean,
+            default: false,
         }
     },
 
