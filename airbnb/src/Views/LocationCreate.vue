@@ -13,14 +13,15 @@
                                 Indirizzo
                             </label>
                             <div class="mt-1 flex rounded-md shadow-sm">
-                                <input
+                                <!-- <input
                                     v-model="form.address"
                                     type="text"
                                     name="address"
                                     id="address"
                                     class="focus:ring-air-500 focus:border-air-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                                     placeholder="Via Vigliani 1"
-                                />
+                                /> -->
+                                <place-input @change="onPlaceChange" />
                             </div>
                         </div>
                     </div>
@@ -151,13 +152,16 @@
 </template>
 
 <script>
+import PlaceInput from "@/components/PlaceInput";
 import { mapActions, mapGetters } from "vuex";
 import axios from "axios";
 import ImageUploader from "@/components/ImageUploader/Uploader";
+import _ from "lodash";
 export default {
     name: "LocationCreate",
     components: {
-        ImageUploader
+        ImageUploader,
+        PlaceInput
     },
 
     data() {
@@ -196,6 +200,19 @@ export default {
         },
         uploaded(e) {
             console.log(e);
+        },
+        onPlaceChange(e) {
+            this.form.address = {
+                name: e.suggestion.name,
+                region: _.kebabCase(
+                    e.suggestion.administrative.replace("/", "-")
+                ),
+                region_code:
+                    e.suggestion.hit.county[1] || e.suggestion.hit.county[0],
+                country_code: e.suggestion.countryCode,
+                post_code: e.suggestion.postcode || e.suggestion.hit.objectID,
+                cordinates: e.suggestion.latlng
+            };
         }
     },
     created: function() {

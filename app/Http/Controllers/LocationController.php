@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Place;
 use App\Models\Location;
 use Illuminate\Http\Request;
+use App\Models\LocationPhotos;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\LocationResource;
-use App\Models\LocationPhotos;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class LocationController extends Controller
@@ -58,12 +59,30 @@ class LocationController extends Controller
     public function store(Request $request)
     {
         $images = $request->input('images');
+        $place = $request->input('address');
+
+        
+        
+
         $loc =  Location::create([
             'name' => $request->input('title'),
             'description' => $request->input('description'),
             'price' => $request->input('price'),
             'guest_number' => $request->input('guest'),
-            'place_id' => 1,
+            'place_id' => Place::firstOrCreate([
+                'post_code' => $place['post_code'],
+                'name' => $place['name'],
+                'country_code' => $place['country_code']
+
+            ],[
+                    'name' => $place['name'],
+                    'region' => $place['region'],
+                    'region_code' => $place['region_code'],
+                    'country_code' => $place['country_code'],
+                    'post_code' => $place['post_code'],
+                    'latitude' => $place['cordinates']['lat'],
+                    'longitude' => $place['cordinates']['lng']
+            ])->id,
             'user_id' => $request->input('user'),
             'subtitle' => 'Il sottotitolo',
             'category_id' => $request->input('category')
