@@ -40,11 +40,12 @@ class LocationController extends Controller
             $out = $request->query('out', '2020-11-06');
             $q = $request->query('q');
 
-            $locations = Location::with('images')->filter(function ($loc) use ($post_code) {
+            $locations = Location::with('images')->get()->filter(function ($loc) use ($post_code) {
                 return $loc->place->post_code == $post_code;
             })->filter(function ($loc) use ($in, $out) {
                 return $loc->isAvailable($in, $out);
             });
+            
         }
         return new LocationResource($locations);
     }
