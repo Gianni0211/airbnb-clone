@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div class="card relative rounded shadow" @mouseover="mouseOver" @mouseleave="mouseLeave">
+    <div
+      class="card relative rounded shadow"
+      @mouseover="mouseOver"
+      @mouseleave="mouseLeave"
+    >
       <div v-show="hover">
         <button
           @click="onClick($event)"
@@ -13,28 +17,25 @@
       <img :src="image" alt="result" class="w-52 h-20" />
       <span class="name">{{ shortName }}</span>
     </div>
-    
   </div>
 </template>
 
 <script>
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 export default {
   name: "PreviewCard",
   data() {
     return {
-      options: ["L-CC", "R-CC", "L-MLO", "R-MLO"],
-      selected: "L-CC",
-
-      id : null,
+      id: null,
       hover: false,
+      type: null,
     };
   },
-  computed:{
-    shortName: function(){
+  computed: {
+    shortName: function () {
       return this.name.substr(0, 20);
-    }
+    },
   },
   props: {
     image: {
@@ -45,18 +46,18 @@ export default {
       type: String,
       required: true,
     },
-   
   },
-  mounted ()  {
-
-    if(this.id == null){
+  mounted() {
+    if (this.id == null) {
       this.id = uuidv4();
     }
-    
+    this.type = this.image.split(";")[0].split("/")[1];
+    console.log(this.type);
+
     this.$emit("mount", {
       id: this.id,
       image: this.image,
-      view: this.selected,
+      type: "." + this.type,
     });
   },
   methods: {
@@ -64,7 +65,6 @@ export default {
       this.$emit("selected", {
         id: this.id,
         image: this.image,
-        view: this.selected,
       });
     },
     mouseOver() {
@@ -75,7 +75,6 @@ export default {
     },
 
     onClick() {
-
       this.$emit("deleted", {
         id: this.id,
       });

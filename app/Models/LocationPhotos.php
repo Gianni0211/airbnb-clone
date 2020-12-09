@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class LocationPhotos extends Model
 {
     use HasFactory;
+    protected $guarded = [];
     public function location(){
         return $this->belongsTo(Location::class);
     }

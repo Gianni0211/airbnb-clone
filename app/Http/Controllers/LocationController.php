@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Location;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\LocationResource;
+use App\Models\LocationPhotos;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class LocationController extends Controller
@@ -29,7 +31,7 @@ class LocationController extends Controller
     {
         if (!count($request->query())) {
 
-            $locations = Location::all();
+            $locations = Location::with('images')->get();
         } else {
 
             $post_code = $request->query('l');
@@ -37,7 +39,7 @@ class LocationController extends Controller
             $out = $request->query('out', '2020-11-06');
             $q = $request->query('q');
 
-            $locations = Location::all()->filter(function ($loc) use ($post_code) {
+            $locations = Location::with('images')->filter(function ($loc) use ($post_code) {
                 return $loc->place->post_code == $post_code;
             })->filter(function ($loc) use ($in, $out) {
                 return $loc->isAvailable($in, $out);
@@ -55,6 +57,7 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
+        $images = $request->input('images');
         $loc =  Location::create([
             'name' => $request->input('title'),
             'description' => $request->input('description'),
@@ -64,8 +67,18 @@ class LocationController extends Controller
             'user_id' => $request->input('user'),
             'subtitle' => 'Il sottotitolo',
             'category_id' => $request->input('category')
-
         ]);
+            
+        foreach ($images as $img)  {
+            $base64_img = explode(',', $img['image'])[1];
+            $path = $loc->id. '/' .$img['id'] . $img['type'];
+            Storage::put('public/loc_' . $path, base64_decode($base64_img));
+            LocationPhotos::create([
+                'file' => 'http://localhost:8000/storage/loc_'. $path, 
+                'location_id' => $loc->id
+            ]);
+        }
+
         return response()->json($loc);
     }
 
