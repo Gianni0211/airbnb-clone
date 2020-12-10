@@ -4,8 +4,6 @@ import axios from "axios";
 axios.defaults.baseURL = "http://localhost:8000/";
 
 
-
-
 import store from "./Store/store";
 
 import router from "./router";

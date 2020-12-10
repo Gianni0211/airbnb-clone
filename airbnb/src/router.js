@@ -9,6 +9,7 @@ import Login from "./Views/Login";
 import Register from "./Views/Register";
 import Index from "./Views/Index";
 import Show from "./Views/Show";
+import DatePicker from "@/components/DatePicker";
 
 Vue.use(VueRouter);
 
@@ -51,6 +52,11 @@ const routes = [
         path: "/Show/:id",
         component: Show,
         name: "location.show"
+    },
+    {
+        path: "/test",
+        component: DatePicker,
+        name: "Test"
     }
 ];
 

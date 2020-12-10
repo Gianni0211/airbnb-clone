@@ -62,4 +62,7 @@ export default {
     margin-top: 3px;
     overflow: hidden;
   }
+  .ap-input-icon{
+    display: none;
+  }
 </style>
