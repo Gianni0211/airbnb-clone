@@ -205,11 +205,7 @@
                         >
                     </div>
 
-                    <button
-                        class="text-white font-bold text-lg py-3 px-5 rounded-xl bg-gradient-to-br to-pink-600 from-red-500"
-                    >
-                        Prenota
-                    </button>
+                    <book-btn :checkoutData="checkout" />
                 </div>
 
                 <!--md-->
@@ -232,23 +228,35 @@
                         >
                     </div>
                     <!--Date picker -->
+                    <!-- <date-picker /> -->
                     <div
                         class="flex-col rounded-xl border border-gray-400 overflow-hidden my-5"
                     >
-                        <div class="h-16">
+                        <!-- <div class="h-16">
                             <div
                                 class="w-1/2 border-r h-full border-gray-400"
                             ></div>
                             <div class="w-1/2"></div>
+                        </div> -->
+                        <date-picker @change-date="selectedDate" />
+                        <div
+                            class="h-16 border-t border-gray-400 flex flex-col p-2 "
+                        >
+                            <label class="font-bold" for="">OSPITI</label>
+                            <select
+                                class="focus:outline-none"
+                                name="ospiti"
+                                id=""
+                                v-model="checkout.guests"
+                            >
+                                <option v-for="n in 15" :key="n" :value="n">{{
+                                    n
+                                }}</option>
+                            </select>
                         </div>
-                        <div class="h-16 border-t border-gray-400"></div>
                     </div>
                     <!--Bottone-->
-                    <button
-                        class="text-white font-bold text-lg py-3 px-5 rounded-xl bg-gradient-to-br to-pink-600 from-red-500 my-2"
-                    >
-                        Prenota
-                    </button>
+                    <book-btn :checkoutData="checkout" />
                     <p class="text-gray-700 text-center text-sm">
                         Non riceverai alcun addebito in questa fase
                     </p>
@@ -268,13 +276,27 @@
 <script>
 import axios from "axios";
 import PhotoCarousel from "../components/PhotoCarousel.vue";
+import DatePicker from "../components/DatePicker.vue";
+import BookBtn from "../components/BookBtn.vue";
 export default {
-    components: { PhotoCarousel },
+    components: { PhotoCarousel, DatePicker, BookBtn },
     name: "Show",
     data() {
         return {
-            location: null
+            location: null,
+            checkout: {
+                range: null,
+                guests: null
+            }
         };
+    },
+    methods: {
+        selectedDate(e) {
+            this.checkout.range = {
+                start: e.start.toISOString().split("T")[0],
+                end: e.end.toISOString().split("T")[0]
+            };
+        }
     },
     computed: {
         more: function() {

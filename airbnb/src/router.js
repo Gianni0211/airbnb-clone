@@ -9,7 +9,7 @@ import Login from "./Views/Login";
 import Register from "./Views/Register";
 import Index from "./Views/Index";
 import Show from "./Views/Show";
-import DatePicker from "@/components/DatePicker";
+import Checkout from "./Views/Checkout";
 
 Vue.use(VueRouter);
 
@@ -54,9 +54,9 @@ const routes = [
         name: "location.show"
     },
     {
-        path: "/test",
-        component: DatePicker,
-        name: "Test"
+        path: "/Checkout",
+        component: Checkout,
+        name: "checkout"
     }
 ];
 
