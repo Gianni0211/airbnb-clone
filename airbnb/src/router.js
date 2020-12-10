@@ -54,7 +54,7 @@ const routes = [
         name: "location.show"
     },
     {
-        path: "/Checkout",
+        path: "/Checkout/:id",
         component: Checkout,
         name: "checkout"
     }

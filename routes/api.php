@@ -41,6 +41,7 @@ Route::group([
 ], function ($router) {
 
     Route::post('store', [LocationController::class, 'store'])->name('location.store');
+    Route::post('reservation', [LocationController::class, 'reservation'])->name('location.reservation');
     Route::get('index', [LocationController::class, 'index'])->name('location.index');
     Route::get('show/{location}', [LocationController::class, 'show'])->name('location.show');
     Route::delete('delete/{location}', [LocationController::class, 'destroy'])->name('location.delete');

@@ -21,6 +21,8 @@ class Reservation extends Migration
             $table->foreign('location_id')->references('id')->on('locations');
             $table->date('check_in');
             $table->date('check_out');
+            $table->integer('guests');
+            $table->float('total_price');
             $table->timestamps();
         });
     }

@@ -14,6 +14,9 @@ export default {
         checkoutData: {
             type: Object,
             required: true
+        },
+        id:{
+            required: true,
         }
     },
     methods: {
@@ -24,6 +27,9 @@ export default {
                     in: this.checkoutData.range.start,
                     out: this.checkoutData.range.end,
                     guests: this.checkoutData.guests
+                },
+                params: {
+                    id: this.id,
                 }
             });
         }

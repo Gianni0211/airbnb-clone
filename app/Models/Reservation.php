@@ -19,6 +19,8 @@ class Reservation extends Pivot
         'check_out'
     ];
     protected $dateFormat = 'Y-m-d';
+    protected $guarded = [];
+    
 
     public function user()
     {

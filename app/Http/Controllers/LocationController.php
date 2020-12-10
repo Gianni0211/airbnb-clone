@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Reservation;
 use App\Models\Place;
 use App\Models\Location;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Models\LocationPhotos;
+use App\Http\Middleware\Authenticate;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\LocationResource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -45,7 +48,6 @@ class LocationController extends Controller
             })->filter(function ($loc) use ($in, $out) {
                 return $loc->isAvailable($in, $out);
             });
-            
         }
         return new LocationResource($locations);
     }
@@ -62,8 +64,8 @@ class LocationController extends Controller
         $images = $request->input('images');
         $place = $request->input('address');
 
-        
-        
+
+
 
         $loc =  Location::create([
             'name' => $request->input('title'),
@@ -75,26 +77,26 @@ class LocationController extends Controller
                 'name' => $place['name'],
                 'country_code' => $place['country_code']
 
-            ],[
-                    'name' => $place['name'],
-                    'region' => $place['region'],
-                    'region_code' => $place['region_code'],
-                    'country_code' => $place['country_code'],
-                    'post_code' => $place['post_code'],
-                    'latitude' => $place['cordinates']['lat'],
-                    'longitude' => $place['cordinates']['lng']
+            ], [
+                'name' => $place['name'],
+                'region' => $place['region'],
+                'region_code' => $place['region_code'],
+                'country_code' => $place['country_code'],
+                'post_code' => $place['post_code'],
+                'latitude' => $place['cordinates']['lat'],
+                'longitude' => $place['cordinates']['lng']
             ])->id,
             'user_id' => $request->input('user'),
             'subtitle' => 'Il sottotitolo',
             'category_id' => $request->input('category')
         ]);
-            
-        foreach ($images as $img)  {
+
+        foreach ($images as $img) {
             $base64_img = explode(',', $img['image'])[1];
-            $path = $loc->id. '/' .$img['id'] . $img['type'];
+            $path = $loc->id . '/' . $img['id'] . $img['type'];
             Storage::put('public/loc_' . $path, base64_decode($base64_img));
             LocationPhotos::create([
-                'file' => 'http://localhost:8000/storage/loc_'. $path, 
+                'file' => 'http://localhost:8000/storage/loc_' . $path,
                 'location_id' => $loc->id
             ]);
         }
@@ -110,7 +112,7 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
-        $loc = Location::where('id', $location->id)->with('images','user','place')->get();
+        $loc = Location::where('id', $location->id)->with('images', 'user', 'place')->get();
         return new LocationResource($loc);
     }
 
@@ -140,5 +142,28 @@ class LocationController extends Controller
             return response()->json(['succes' => true, 'message' => 'Resource delete successfully'], 200);
         }
         return response()->json(['succes' => false, 'message' => 'unauthorized'], 401);
+    }
+
+
+    public function reservation(Request $request)
+    {
+        $loc = Location::find($request->input('id'));
+
+
+
+
+        $period = CarbonPeriod::create($request->input('check_in'), $request->input('check_out'));
+
+        $loc->reservations()->attach(
+            auth()->user()->id,
+            [
+                'total_price' => ($period->count() * $loc->price * $request->input('guests')),
+                'guests' => $request->input('guests'),
+                'check_in' => $request->input('check_in'),
+                'check_out' => $request->input('check_out'),
+            ]
+        );
+        
+        return response()->json(['success' => true]);
     }
 }

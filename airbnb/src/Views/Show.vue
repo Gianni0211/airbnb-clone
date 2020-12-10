@@ -205,7 +205,7 @@
                         >
                     </div>
 
-                    <book-btn :checkoutData="checkout" />
+                    <book-btn :checkoutData="checkout" :id="location.id"/>
                 </div>
 
                 <!--md-->
@@ -256,10 +256,12 @@
                         </div>
                     </div>
                     <!--Bottone-->
-                    <book-btn :checkoutData="checkout" />
+                    <book-btn :checkoutData="checkout" :id="location.id"/>
                     <p class="text-gray-700 text-center text-sm">
                         Non riceverai alcun addebito in questa fase
                     </p>
+
+
 
                     <div
                         class="flex justify-between border-t border-gray-400 py-5 mt-5 font-bold text-xl"
