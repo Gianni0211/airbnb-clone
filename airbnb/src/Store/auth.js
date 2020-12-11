@@ -52,6 +52,9 @@ export default {
                         }
                     })
                     .then(()=> {
+                        console.log('out');
+                        commit("LOGOUT_USER");
+                    }).catch(() => {
                         commit("LOGOUT_USER");
                     })
             

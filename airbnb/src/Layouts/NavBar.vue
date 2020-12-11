@@ -129,7 +129,7 @@ export default {
         return "https://a0.muscache.com/defaults/user_pic-50x50.png?v=3"
       }
       else {
-        return this.user.profile_photo_path
+        return this.user.profile_photo_path || "https://a0.muscache.com/defaults/user_pic-50x50.png?v=3"
       }
     }
   },
