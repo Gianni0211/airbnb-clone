@@ -168,24 +168,39 @@
             </label>
           </div>
         </form>
+        <button class="text-white mt-5 font-bold text-lg py-3 px-5 rounded-xl bg-gradient-to-br to-pink-600 from-red-500 my-2 flex items-center justify-center">
+          <i class="fas fa-lock mr-5"></i>
+          Conferma e paga</button>
       </div>
     </div>
-    <div class=" h-16 md:h-64 bg-white md:w-1/2 w-full md:sticky md:top-0  flex items-center border-t md:border-none">
+    <div class=" h-16 md:h-64 bg-white md:w-1/2 w-full md:sticky md:top-20 mt-10  flex items-center border-t md:border-none ">
       <div
         class="hidden md:flex bg-white justify-evenly w-10/12 mx-auto border shadow-md rounded-xl flex-col p-5 "
       >
-        <div class="flex border-b border-gray-300 pb-8">
+        <div class="flex border-b border-gray-300 pb-6  ">
           <img src="https://picsum.photos/200" alt="" class="w-1/2 rounded-2xl ">
-          <div class="ml-2">
-            titolo
+          <div class="ml-2 flex flex-col justify-between pb-12 pt-2 self-start">
+            
+            <p class="text-gray-400 text-sm">{{location.place.name}}: {{location.category.name}}</p>
+            <div>
+            <h2 class="text-gray-600">{{location.name}}</h2>
+            <p class="text-sm text-gray-400">{{location.guest_number}} Letti</p>
+
+            </div>
+            <div class="flex items-center">
+              <i class="fas fa-star text-air-500 text-sm mr-1"></i>
+              <p class="font-semibold text-sm text-black">5 <span class="text-gray-400">(10)</span></p>
+              
+            </div>
             
           </div>
         </div>
-        <hr>
-        <div>
-          Dettagli
+        
+        <div class=" flex justify-between items-center  pb-6 ">
+          <h2 class="font-bold mt-3 text-lg">Totale</h2>
+          <p>€{{totalPrice}}</p>
         </div>
-        TOtale
+       
       </div>
     </div>
   </div>
@@ -206,7 +221,16 @@ export default {
         check_out: this.$route.query.out,
         guests: this.$route.query.guests,
       },
+      location: null
     };
+  },
+  computed:{
+    totalPrice: function(){
+      let period = Math.abs(new Date(this.info.check_out) - new Date(this.info.check_in)) /1000 / 60 /60 / 24 ;
+      
+     return  period * this.info.guests * this.location.price;
+    }
+
   },
   methods: {
     submit() {
@@ -223,6 +247,12 @@ export default {
       );
     },
   },
+  mounted(){
+    axios.get(`api/location/show/${this.$route.params.id}`).then(res => {
+      
+      this.location = res.data.data[0];
+    })
+  }
 };
 </script>
 

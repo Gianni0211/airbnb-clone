@@ -5,6 +5,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Place;
+use App\Models\Category;
 use Carbon\CarbonPeriod;
 use App\Models\LocationPhotos;
 use Illuminate\Database\Eloquent\Model;
@@ -32,6 +33,10 @@ class Location extends Model
     public function reservations()
     {
         return $this->belongsToMany(User::class, 'reservations')->using(Reservation::class)->withPivot(['check_in', 'check_out']);
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 
    

@@ -112,7 +112,7 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
-        $loc = Location::where('id', $location->id)->with('images', 'user', 'place')->get();
+        $loc = Location::where('id', $location->id)->with('images', 'user', 'place', 'category')->get();
         return new LocationResource($loc);
     }
 
