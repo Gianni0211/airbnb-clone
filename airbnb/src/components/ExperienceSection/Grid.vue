@@ -1,10 +1,10 @@
 <template>
 <div class="grid-container">
-  <div class="A"><card-grid :text="topFour[0].name"/></div>
+  <div class="A"><card-grid :img="topFour[0].images[0].file||null" :text="topFour[0].name"/></div>
   <div class="B">
-    <div class="B1"><card-grid :text="topFour[1].name"/></div>
-    <div class="B2"><card-grid :text="topFour[2].name"/></div>
-    <div class="C"><card-grid :text="topFour[3].name"/></div>
+    <div class="B1"><card-grid :img="topFour[1].images[0].file||null" :text="topFour[1].name"/></div>
+    <div class="B2"><card-grid :img="topFour[2].images[0].file||null" :text="topFour[2].name"/></div>
+    <div class="C"><card-grid :img="topFour[3].images[0].file||null" :text="topFour[3].name"/></div>
   </div>
 </div>
 </template>
@@ -24,6 +24,8 @@ props : {
 components: {
  CardGrid
 },
+
+
 }
 </script>
 

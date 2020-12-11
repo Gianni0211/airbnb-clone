@@ -26,6 +26,7 @@ name: 'CardGrid',
        default: 'Testo della carta',
     }
  },
+
 }
 </script>
 

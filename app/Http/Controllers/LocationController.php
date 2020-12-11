@@ -35,7 +35,7 @@ class LocationController extends Controller
     {
         if (!count($request->query())) {
 
-            $locations = Location::with('images')->get();
+            $locations = Location::with('images')->orderBy('created_at', 'desc')->get();
         } else {
 
             $post_code = $request->query('l');

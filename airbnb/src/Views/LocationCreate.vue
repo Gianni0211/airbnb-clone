@@ -1,8 +1,9 @@
 <template>
     <div class="container py-32">
+        <h1>{{error.price}}</h1>
         <h1 class="text-center">Inserisci</h1>
 
-        <form>
+        <form @change="clear">
             <div class="shadow-xl sm:rounded-md sm:overflow-hidden">
                 <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                     <div class="grid grid-cols-3 gap-6">
@@ -21,7 +22,7 @@
                                     class="focus:ring-air-500 focus:border-air-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300"
                                     placeholder="Via Vigliani 1"
                                 /> -->
-                                <place-input @change="onPlaceChange" />
+                                <place-input id="address" @change="onPlaceChange" />
                             </div>
                         </div>
                     </div>
@@ -118,24 +119,28 @@
                                 Prezzo
                             </label>
                             <div class="mt-1 flex rounded-md shadow-sm">
+
+                                
                                 <span
                                     class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm"
                                 >
                                     €
                                 </span>
                                 <input
+                                :class="{'bg-red-600': error.hasOwnProperty('price')}"
                                     v-model="form.price"
                                     type="number"
-                                    name="title"
-                                    id="title"
+                                    name="price"
+                                    id="price"
                                     class="focus:ring-air-500 focus:border-air-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300 pl-5"
                                     placeholder="30"
                                 />
                             </div>
                         </div>
                     </div>
+                    <span v-if="error.file" class="text-small text-red-600">{{error.file}} </span>
 
-                    <ImageUploader @uploaded="upload"></ImageUploader>
+                    <ImageUploader  @uploaded="upload" :class="{'bg-red-600': !!error.file }"></ImageUploader>
                 </div>
                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
                     <button
@@ -174,12 +179,18 @@ export default {
                 address: null,
                 category: null,
                 images: []
-            }
+            },
+            error: {},
         };
     },
+   
     methods: {
         ...mapActions({ fetchCategory: "assets/fetchCategory" }),
         async submitForm() {
+            this.validate();
+            if(Object.keys(this.error).length > 0 ){
+                return;
+            }
             const response = await axios.post(
                 "api/location/store",
                 {
@@ -193,7 +204,16 @@ export default {
                 }
             );
             console.log(response);
-            this.$router.push({ name: "home" });
+            this.$router.push({ name: "thankyou" });
+        },
+        validate(){
+            
+            if(this.form.images.length < 5 ){
+                this.error.file = 'Le immagini devono essere almeno cinque'
+            }
+            if (this.form.price < 100){
+                this.error.price = 'Funge'
+            }
         },
         upload(event) {
             this.form.images = event.images;
@@ -201,6 +221,7 @@ export default {
         uploaded(e) {
             console.log(e);
         },
+
         onPlaceChange(e) {
             this.form.address = {
                 name: e.suggestion.name,
@@ -213,6 +234,9 @@ export default {
                 post_code: e.suggestion.postcode || e.suggestion.hit.objectID,
                 cordinates: e.suggestion.latlng
             };
+        },
+        clear(e){
+            delete this.error[e.target.id];
         }
     },
     created: function() {

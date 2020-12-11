@@ -20,7 +20,7 @@
      
     </div>
     <div class="md:block hidden">
-      <Grid class="mx-auto" :topFour="topFour" />
+      <Grid v-if="topFour.length >= 4" class="mx-auto" :topFour="topFour" />
     </div>
 
     <div class="md:hidden btn-small mt-5">

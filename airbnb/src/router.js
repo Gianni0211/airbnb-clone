@@ -11,6 +11,7 @@ import Index from "./Views/Index";
 import Show from "./Views/Show";
 import Checkout from "./Views/Checkout";
 import ThankYouPage from "./Views/ThankYouPage";
+import NotFound from "./Views/NotFound";
 
 Vue.use(VueRouter);
 
@@ -63,6 +64,10 @@ const routes = [
         path: "/Thankyou",
         component: ThankYouPage,
         name: "thankyou"
+    },
+    {
+        path: '*',
+        component: NotFound,
     }
 ];
 
