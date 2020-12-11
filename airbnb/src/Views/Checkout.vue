@@ -168,7 +168,7 @@
             </label>
           </div>
         </form>
-        <button class="text-white mt-5 font-bold text-lg py-3 px-5 rounded-xl bg-gradient-to-br to-pink-600 from-red-500 my-2 flex items-center justify-center">
+        <button @click.prevent="submit" class="text-white mt-5 font-bold text-lg py-3 px-5 rounded-xl bg-gradient-to-br to-pink-600 from-red-500 my-2 flex items-center justify-center">
           <i class="fas fa-lock mr-5"></i>
           Conferma e paga</button>
       </div>
@@ -244,7 +244,9 @@ export default {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
         }
-      );
+      ).then(()=>{
+        this.$router.push({name: 'thankyou'});
+      });
     },
   },
   mounted(){

@@ -10,6 +10,7 @@ import Register from "./Views/Register";
 import Index from "./Views/Index";
 import Show from "./Views/Show";
 import Checkout from "./Views/Checkout";
+import ThankYouPage from "./Views/ThankYouPage";
 
 Vue.use(VueRouter);
 
@@ -57,6 +58,11 @@ const routes = [
         path: "/Checkout/:id",
         component: Checkout,
         name: "checkout"
+    },
+    {
+        path: "/Thankyou",
+        component: ThankYouPage,
+        name: "thankyou"
     }
 ];
 
