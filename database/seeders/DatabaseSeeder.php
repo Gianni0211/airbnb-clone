@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Place;
 use App\Models\Location;
+use App\Models\LocationPhotos;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -30,7 +31,11 @@ class DatabaseSeeder extends Seeder
             "longitude" => 12.4853,
             "latitude" => 41.8948,
         ]);
-        Location::factory(10)->create();
+        Location::factory(10)->create()->each(function($loc){
+            $loc->images()->saveMany(
+                LocationPhotos::factory(5)->create(['location_id' => $loc->id])
+            );
+        });
         
      
     }
