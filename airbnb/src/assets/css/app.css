@@ -7,3 +7,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.ap-dropdown-menu{
+    width: 300px;
+    background: #ffffff;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    margin-top: 3px;
+    overflow: hidden;
+  }
+  .ap-input-icon{
+    display: none;
+  }

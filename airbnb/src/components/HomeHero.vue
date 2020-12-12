@@ -21,7 +21,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .hero {
   width: 100%;
   height: 85vh;

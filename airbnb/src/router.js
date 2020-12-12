@@ -25,11 +25,7 @@ const routes = [
         path: "/location/create",
         component: LocationCreate,
         name: "location.create",
-        // beforeEnter: (to, from, next) => {
-        //     const isLoggedIn = store.state.auth.isLoggedIn;
-        //     if (!isLoggedIn) next({ name: "Login" });
-        //     else next();
-        // }
+        
         meta: {
             needsAuth : true
         }

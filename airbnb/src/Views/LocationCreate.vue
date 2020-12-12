@@ -276,7 +276,7 @@ export default {
   },
   created: function () {
     this.fetchCategory();
-    console.log(this.user);
+    
   },
   computed: {
     ...mapGetters({
@@ -287,4 +287,4 @@ export default {
 };
 </script>
 
-<style></style>
+
