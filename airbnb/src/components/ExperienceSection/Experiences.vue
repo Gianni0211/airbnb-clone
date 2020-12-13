@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-black text-white container-xl mx-auto flex flex-col justify-between items-center w-full py-20 px-5"
+    class="bg-black text-white container-xl mx-auto flex flex-col justify-between items-center w-full py-20 px-5 "
     id="experiences"
   >
     <div
@@ -15,12 +15,14 @@
       </div>
     </div>
 
-    <div class="md:hidden w-full carousel-container">
-      <CardCarousel v-for="loc in topFour" :key="loc.id" :text="loc.name"/>
+    <div class="md:hidden w-full carousel-container flex ">
+      <router-link v-for="loc in topFour" :key="loc.id" :to="{name: 'location.show', params:{id: loc.id}}">
+      <CardCarousel  :text="loc.name" :img="loc.images[0].file"/>
+      </router-link>
      
     </div>
-    <div class="md:block hidden">
-      <Grid v-if="topFour.length >= 4" class="mx-auto" :topFour="topFour" />
+    <div class="md:block hidden ">
+      <Grid v-if="topFour.length >= 4" class="mx-auto " :topFour="topFour" />
     </div>
 
     <div class="md:hidden btn-small mt-5">

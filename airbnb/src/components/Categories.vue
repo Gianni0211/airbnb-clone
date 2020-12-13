@@ -1,11 +1,12 @@
 <template>
-<div>
-  <div  class="md:flex hidden  justify-center mx-auto  p-10 p-custom container-xl md:px-32">
-   <div v-for="category in categories" :key="category.id" class="mx-2 w-custom"><CardGrid :img="category.img" :text="category.name" :light="true" /></div>
+<div class="container-xl carousel-container md:mx-auto flex flex-col justify-between md:items-center items-start w-full py-20 ">
+  <div  class="md:flex hidden  justify-center mx-auto  w-full ">
+   <div v-for="category in categories" :key="category.id" class="mx-2 w-custom"><CardGrid :img="category.img" :text="category.name" :light="true" />
+   </div>
    
    
   </div>
-  <div  class="md:hidden w-full carousel-container p-10">
+  <div  class="md:hidden  flex">
       <CardCarousel  v-for="category in categories" :key="category.id" :img="category.img" :text="category.name" :light="true" />
      
       
@@ -50,15 +51,17 @@ created(){
 </script>
 
 <style scoped>
+
 .w-custom{
- width: 500px;
- height: 400px;
+  width: 500px;
+  height: 400px;
 }
+
 .p-custom{
  padding: 80px 0 80px 0;
 }
 .carousel-container {
-  @apply mx-auto text-white overflow-x-auto whitespace-nowrap;
+   @apply  text-white overflow-x-auto whitespace-nowrap;
 }
 .carousel-container::-webkit-scrollbar {
   display: none;

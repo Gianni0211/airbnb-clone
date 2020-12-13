@@ -24,7 +24,8 @@ name: 'CardGrid',
     text:{
        type: String,
        default: 'Testo della carta',
-    }
+    },
+   
  },
 
 }

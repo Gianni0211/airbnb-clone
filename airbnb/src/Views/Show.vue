@@ -37,7 +37,7 @@
      -->
         <photo-carousel :images="location.images" class="mt-8 md:hidden" full />
         <div
-            class="grid-container rounded-xl border mt-8 overflow-hidden relative hidden md:grid"
+            class="grid-container rounded-xl border mt-8 overflow-hidden  relative hidden md:grid"
         >
             <div class="d">
                 <img
@@ -336,7 +336,7 @@ export default {
         "a b"
         "c D";
     grid-area: B;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    
 }
 
 .a {

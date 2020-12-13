@@ -1,10 +1,26 @@
 <template>
 <div class="grid-container">
-  <div class="A"><card-grid :img="topFour[0].images[0].file||null" :text="topFour[0].name"/></div>
+  <div class="A">
+    <router-link :to="{name: 'location.show', params:{id: topFour[0].id}}">
+    <card-grid  :img="topFour[0].images[0].file||null" :text="topFour[0].name"/>
+    </router-link>
+    </div>
   <div class="B">
-    <div class="B1"><card-grid :img="topFour[1].images[0].file||null" :text="topFour[1].name"/></div>
-    <div class="B2"><card-grid :img="topFour[2].images[0].file||null" :text="topFour[2].name"/></div>
-    <div class="C"><card-grid :img="topFour[3].images[0].file||null" :text="topFour[3].name"/></div>
+    <div class="B1">
+      <router-link :to="{name: 'location.show', params:{id: topFour[1].id}}">
+      <card-grid  :img="topFour[1].images[0].file||null" :text="topFour[1].name"/>
+      </router-link>
+      </div>
+    <div class="B2">
+      <router-link :to="{name: 'location.show', params:{id: topFour[2].id}}">
+      <card-grid  :img="topFour[2].images[0].file||null" :text="topFour[2].name"/>
+      </router-link>
+      </div>
+    <div class="C">
+      <router-link :to="{name: 'location.show', params:{id: topFour[3].id}}">
+      <card-grid  :img="topFour[3].images[0].file||null" :text="topFour[3].name"/>
+      </router-link>
+      </div>
   </div>
 </div>
 </template>

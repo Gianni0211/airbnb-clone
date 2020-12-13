@@ -1,8 +1,8 @@
 <template>
   
-   <div class="card flex mx-2 flex-col" :class="{'light' : light}">
+   <div class="card  mx-2  " :class="{'light' : light}">
    <img class="img-card" :src="img" :alt="text">
-   <p class="text-card">{{text}}</p>
+   <p class="text-card truncate ">{{text}}</p>
 
    </div>
   
@@ -41,15 +41,16 @@ name: 'Cards',
 .card{
   background-color: rgba(34,34,34);
  overflow: hidden;
- @apply  rounded-xl h-full w-full inline-block ;
+ width: 80vw;
+ @apply  rounded-xl h-full   flex flex-col;
 
 }
 .img-card{
 
  height: 75%;
- max-width: 100%;
- width: 100%;
- align-self: stretch;
+ 
+ width: 80vw;
+ 
 
 }
 .text-card{
