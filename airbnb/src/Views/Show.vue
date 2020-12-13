@@ -190,6 +190,9 @@
             >
                 <!--Bottom navigation bar-->
                 <div class="flex md:hidden w-full justify-between px-10">
+                    <div v-if="dateSelector" class="mt-10">
+                        <date-picker value="range" is-range color="red" />
+                        </div>
                     <div class="flex-col flex justify-center">
                         <p class="text-bold text-xl">
                             {{ location.price }}€<span
@@ -204,8 +207,9 @@
                             ></span
                         >
                     </div>
+                        <button @click="selectDate" class="text-white font-bold  py-3 px-5 rounded-xl bg-gradient-to-br to-pink-600 from-red-500 my-2" v-if="!dateSelector">Seleziona date</button>
 
-                    <book-btn :checkoutData="checkout" :id="location.id"/>
+                    <book-btn v-else :checkoutData="checkout" :id="location.id"/>
                 </div>
 
                 <!--md-->
@@ -280,6 +284,7 @@ import axios from "axios";
 import PhotoCarousel from "../components/PhotoCarousel.vue";
 import DatePicker from "../components/DatePicker.vue";
 import BookBtn from "../components/BookBtn.vue";
+
 export default {
     components: { PhotoCarousel, DatePicker, BookBtn },
     name: "Show",
@@ -287,9 +292,13 @@ export default {
         return {
             location: null,
             checkout: {
-                range: null,
+                range: {
+                    start: new Date(),
+                    end: new Date(),
+                },
                 guests: null
-            }
+            },
+            dateSelector: false,
         };
     },
     methods: {
@@ -298,6 +307,15 @@ export default {
                 start: e.start.toISOString().split("T")[0],
                 end: e.end.toISOString().split("T")[0]
             };
+        },
+        selectDate(){
+        this.dateSelector = true;
+        }
+    },
+    watch: {
+        'checkout.range': function (newVal, oldVal){
+            console.log(newVal, oldVal);
+            this.dateSelector = false;
         }
     },
     computed: {
