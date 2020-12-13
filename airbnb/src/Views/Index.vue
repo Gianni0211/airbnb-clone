@@ -1,5 +1,5 @@
 <template>
-  <div class="container-xl px-8">
+  <div class="container-xl md:px-8">
     <div v-for="location in locations" :key="location.id">
         <index-card :location="location"/>
     </div>
