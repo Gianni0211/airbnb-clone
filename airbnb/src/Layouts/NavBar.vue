@@ -1,16 +1,20 @@
 <template>
   <div
-    class="flex flex-col h-20 z-50 w-full transition duration-300 bg-transparent  "
+    class="flex flex-col h-20 z-50 w-full transition duration-300 bg-transparent"
     v-on-clickaway="closeSearchBox"
     :class="{
-      'absolute top-50 text-white' : scrollPosition < 50 ,
-      ' fixed bg-white text-black shadow' : scrollPosition > 50 || searchBox,
-      'relative text-black shadow' : this.$route.name != 'Home' 
+      'absolute top-50 text-white': scrollPosition < 50,
+      ' fixed bg-white text-black shadow': scrollPosition > 50 || searchBox,
+      'relative text-black shadow': this.$route.name != 'Home',
     }"
-    :style="scrollPosition < 50 && searchBox || this.$route.name != 'Home' ? 'color: black;' : ''"
+    :style="
+      (scrollPosition < 50 && searchBox) || this.$route.name != 'Home'
+        ? 'color: black;'
+        : ''
+    "
   >
     <nav
-      class="navbar container-xl lg:px-40 p-10 pb-0 pt-5 relative"
+      class="navbar md:justify-between justify-center container-xl lg:px-40 p-10 pb-0 pt-5 relative"
       :class="{ 'h-48': searchBox }"
     >
       <router-link to="/">
@@ -21,16 +25,13 @@
         />
       </router-link>
       <div v-if="searchBox">
-        <div class="tabs inline-block self-end  text-black">
+        <div class="tabs inline-block self-end text-black">
           <ul class="flex items-center justify-center">
             <li class="hover:border-b hover:border-black mr-8">
               <a href="#">Alloggi</a>
             </li>
             <li class="hover:border-bottom mr-8">
-              <a href="#"
-                >Esperienze
-                
-              </a>
+              <a href="#">Esperienze </a>
             </li>
             <li class="hover:border-bottom">
               <a href="#">Esperienze online</a>
@@ -57,7 +58,10 @@
       </button>
 
       <ul class="style-none md:flex justify-between hidden">
-        <li v-if="!searchBox" class="flex justify-center items-center mr-5 relative">
+        <li
+          v-if="!searchBox"
+          class="flex justify-center items-center mr-5 relative"
+        >
           <a
             href="/host/request"
             class="hover-link py-2 px-5 rounded-full"
@@ -71,7 +75,10 @@
             >Aggiungi il tuo spazio</router-link
           >
         </li>
-        <li  v-if="!searchBox" class="mr-5 flex justify-center items-center relative">
+        <li
+          v-if="!searchBox"
+          class="mr-5 flex justify-center items-center relative"
+        >
           <a href=""
             ><i
               class="fas fa-globe hover-link px-4 py-3 rounded-full"
@@ -93,12 +100,11 @@
       </ul>
       <user-modal v-if="userOptions" v-on-clickaway="togleUserModal" />
     </nav>
-    <transition name="zoom-in">
-      <search-bar
-        v-if="searchBox"
-        class="hidden md:block transition duration-400"
-      ></search-bar>
-    </transition>
+    <div name="zoom-in" v-if="searchBox">
+      <MobileModal class="md:hidden" @close="closeSearchBox"/>
+      <search-bar class="hidden md:block transition duration-400"></search-bar>
+      
+    </div>
   </div>
 </template>
 
@@ -106,6 +112,7 @@
 import { directive as onClickaway } from "vue-clickaway";
 import SearchBar from "../components/SearchBar";
 import UserModal from "../components/UserModal";
+import MobileModal from "../components/MobileModal";
 import { mapGetters } from "vuex";
 
 export default {
@@ -113,30 +120,35 @@ export default {
   components: {
     SearchBar,
     UserModal,
+    MobileModal,
   },
   data() {
     return {
       searchBox: false,
       scrollPosition: null,
       userOptions: false,
-      
     };
   },
   computed: {
     ...mapGetters({ user: "auth/user" }),
-    profilePic : function(){
-      if(!this.user){
-        return "https://a0.muscache.com/defaults/user_pic-50x50.png?v=3"
+    profilePic: function () {
+      if (!this.user) {
+        return "https://a0.muscache.com/defaults/user_pic-50x50.png?v=3";
+      } else {
+        return (
+          this.user.profile_photo_path ||
+          "https://a0.muscache.com/defaults/user_pic-50x50.png?v=3"
+        );
       }
-      else {
-        return this.user.profile_photo_path || "https://a0.muscache.com/defaults/user_pic-50x50.png?v=3"
-      }
-    }
+    },
   },
 
   methods: {
     activateSearchBox() {
       this.searchBox = true;
+      if (window.innerWidth < 767) {
+        this.mobile = true;
+      }
     },
     closeSearchBox() {
       this.searchBox = false;
@@ -160,6 +172,7 @@ export default {
   directives: {
     onClickaway: onClickaway,
   },
+  
 };
 </script>
 
@@ -170,7 +183,6 @@ export default {
 .navbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 .nav {
   width: 100%;

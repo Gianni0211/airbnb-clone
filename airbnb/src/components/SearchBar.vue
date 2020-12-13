@@ -19,32 +19,7 @@
 
                 <place-input @change="onPlaceChange" />
             </li>
-            <!-- <li
-                @click="select"
-                :class="{
-                    'bg-white shadow': clicked == 2,
-                    'li-before': !clicked,
-                    'li-before-dark ': clicked && clicked != 2
-                }"
-                class="flex flex-col justify-center items-start p-6 rounded-full"
-                data-id="2"
-            >
-                <div class="text-black text-sm">Check-in</div>
-                <div class="text-gray-400">Aggiungi date</div>
-            </li>
-            <li
-                @click="select"
-                :class="{
-                    'bg-white shadow': clicked == 3,
-                    'li-before': !clicked,
-                    'li-before-dark ': clicked && clicked != 3
-                }"
-                class="flex flex-col justify-center items-start p-6 rounded-full"
-                data-id="3"
-            >
-                <div class="text-black text-sm">Check-out</div>
-                <div class="text-gray-400">Aggiungi date</div>
-            </li> -->
+            
             <date-picker v-model="range" is-range class="flex h-full">
                 <template v-slot="{ inputValue, inputEvents }">
                     <li
