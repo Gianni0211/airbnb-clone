@@ -160,14 +160,30 @@
       </div>
       <div
         class="z-100 fixed left-0 bottom-0 h-16 md:h-64 bg-white md:w-4/12 w-full md:sticky md:top-32 md:mt-20 flex flex-col items-center border-t md:border-none"
-        :class="{'h-full w-full py-20' : dateSelectorMode}"
+        :class="{ 'h-full w-full py-20': dateSelectorMode }"
       >
-            <div v-if="dateSelectorMode" class="mt-10 mb-10 px-20">
-            <date-picker @change-date="selectedDate" value="range" is-range color="red" />
-          </div>
+        <!--MobileDate picker-->
+        <div v-if="dateSelectorMode" class="mt-10 mb-10 px-20">
+          <date-picker
+            @change-date="selectedDate"
+            value="range"
+            is-range
+            color="red"
+          />
+
+          <label class="mt-10 block font-bold" for="guests">Seleziona posti letto</label>
+          <select
+            v-model="guests"
+            id="guests"
+            name="guests"
+            autocomplete="guests"
+            class="mt-2 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm sm:text-sm "
+          >
+            <option v-for="n in 15" :key="n">{{ n }}</option>
+          </select>
+        </div>
         <!--Bottom navigation bar-->
         <div class="flex md:hidden w-full justify-between px-10">
-    
           <div class="flex-col flex justify-center">
             <p class="text-bold text-xl">
               {{ location.price }}€<span class="text-gray-600 text-sm"
@@ -207,16 +223,9 @@
             >
           </div>
           <!--Date picker -->
-          <!-- <date-picker /> -->
           <div
             class="flex-col rounded-xl border border-gray-400 overflow-hidden my-5"
           >
-            <!-- <div class="h-16">
-                            <div
-                                class="w-1/2 border-r h-full border-gray-400"
-                            ></div>
-                            <div class="w-1/2"></div>
-                        </div> -->
             <date-picker @change-date="selectedDate" />
             <div class="h-16 border-t border-gray-400 flex flex-col p-2">
               <label class="font-bold" for="">OSPITI</label>
@@ -265,10 +274,10 @@ export default {
           start: new Date(),
           end: new Date(),
         },
-        guests: null,
+        guests: 1,
       },
       dateSelectorMode: false,
-      isDateSelected : false,
+      isDateSelected: false,
     };
   },
   methods: {
@@ -292,7 +301,6 @@ export default {
     more: function () {
       return this.location.images.length >= 5 ? true : false;
     },
-   
   },
   created() {
     const id = this.$route.params.id;

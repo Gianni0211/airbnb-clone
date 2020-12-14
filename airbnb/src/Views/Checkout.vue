@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex-wrap flex relative mt-16">
+  <div class="container flex-wrap flex relative md:mt-16 mt-5">
     <div class="md:w-1/2 w-full p-5 pt-0">
       <h1 class="text-4xl font-bold">Richiedi di prenotare</h1>
 
@@ -173,13 +173,13 @@
           Conferma e paga</button>
       </div>
     </div>
-    <div class=" h-16 md:h-64 bg-white md:w-1/2 w-full md:sticky md:top-20 mt-10  flex items-center border-t md:border-none ">
+    <div class=" md:h-64 bg-white md:w-1/2 w-full md:sticky md:top-20 mb-10  flex items-center  md:border-none sm:my-10 order-first md:order-last">
       <div
-        class="hidden md:flex bg-white justify-evenly w-10/12 mx-auto border shadow-md rounded-xl flex-col p-5 "
+        class=" md:flex bg-white justify-evenly w-10/12 mx-auto border shadow-md rounded-xl flex-col p-5 "
       >
         <div class="flex border-b border-gray-300 pb-6  ">
-          <img src="https://picsum.photos/200" alt="" class="w-1/2 rounded-2xl ">
-          <div class="ml-2 flex flex-col justify-between pb-12 pt-2 self-start">
+          <img :src="location.images[0].file" alt="" class="w-1/2 rounded-2xl ">
+          <div class="ml-5 flex flex-col justify-between pb-12 pt-2 self-start">
             
             <p class="text-gray-400 text-sm">{{location.place.name}}: {{location.category.name}}</p>
             <div>
