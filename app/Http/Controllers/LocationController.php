@@ -33,6 +33,10 @@ class LocationController extends Controller
      */
     public function index(Request $request)
     {
+        if($request->query('cat')){
+            $locations = Location::where('category_id', $request->query('cat'))->with('images')->orderBy('created_at', 'desc')->get();
+            return new LocationResource($locations);
+        }
         if (!count($request->query())) {
 
             $locations = Location::with('images')->orderBy('created_at', 'desc')->get();

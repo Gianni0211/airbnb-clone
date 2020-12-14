@@ -1,14 +1,15 @@
 <template>
 <div class="container-xl carousel-container md:mx-auto flex flex-col justify-between md:items-center items-start w-full py-20 ">
   <div  class="md:flex hidden  justify-center mx-auto  w-full ">
-   <div v-for="category in categories" :key="category.id" class="mx-2 w-custom"><CardGrid :img="category.img" :text="category.name" :light="true" />
-   </div>
+   <router-link :to="{name:'location.index', query: {cat: category.id}}" v-for="category in categories" :key="category.id" class="mx-2 w-custom"><CardGrid :img="category.img" :text="category.name" :light="true" />
+   </router-link>
    
    
   </div>
   <div  class="md:hidden  flex">
-      <CardCarousel  v-for="category in categories" :key="category.id" :img="category.img" :text="category.name" :light="true" />
-     
+    <router-link :to="{name:'location.index', query: {cat: category.id}}" v-for="category in categories" :key="category.id">
+      <CardCarousel   :img="category.img" :text="category.name" :light="true" />
+    </router-link>
       
       
     </div>
