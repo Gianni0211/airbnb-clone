@@ -13,19 +13,21 @@ use App\Notifications\HostRequestNotification;
 
 class HostController extends Controller
 {
-    public function request(){
-        return view('hostHome');
-    }
+    
     public function sendMail(User $user){
         
         
         Notification::send($user, new HostRequestNotification($user));
-        return redirect()->back();
+        return response()->json([
+            'succes' => true
+        ]);
     }
     public function acceptHost(User $user)
     {
         $user->makeUserHost();
-        return redirect(route('home'));
+        return response()->json([
+            'succes' => true
+        ]);
     }
 
     /* public function create()

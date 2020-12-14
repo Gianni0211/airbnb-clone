@@ -62,11 +62,11 @@
           v-if="!searchBox"
           class="flex justify-center items-center mr-5 relative"
         >
-          <a
-            href="/host/request"
+          <router-link
+            :to="{name:'host'}"
             class="hover-link py-2 px-5 rounded-full"
             :class="{ 'bg-hover': scrollPosition > 50 || searchBox }"
-            >Diventa un host</a
+            >Diventa un host</router-link
           >
           <router-link
             to="/location/create"

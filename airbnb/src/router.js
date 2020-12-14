@@ -12,6 +12,7 @@ import Show from "./Views/Show";
 import Checkout from "./Views/Checkout";
 import ThankYouPage from "./Views/ThankYouPage";
 import NotFound from "./Views/NotFound";
+import Host from "./Views/Host";
 
 Vue.use(VueRouter);
 
@@ -60,6 +61,11 @@ const routes = [
         path: "/Thankyou",
         component: ThankYouPage,
         name: "thankyou"
+    },
+    {
+        path: "/host/request",
+        component: Host,
+        name: "host"
     },
     {
         path: '*',

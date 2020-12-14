@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\HostController;
 use App\Http\Controllers\LocationController;
 
 /*
@@ -46,14 +47,20 @@ Route::group([
     Route::get('show/{location}', [LocationController::class, 'show'])->name('location.show');
     Route::delete('delete/{location}', [LocationController::class, 'destroy'])->name('location.delete');
 });
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'host'
+
+], function ($router) {
+
+    
+    Route::post('send/{user}', [HostController::class, 'sendMail'])->name('host.send');
+    Route::get('accept/{user}', [HostController::class, 'acceptHost'])->name('host.accept');
+});
 
 Route::get('/get_all_categories', [DataController::class, 'fetchCategories']);
 
 
-// Route::get('/search_place', [DataController::class, 'getPlace']);
-// Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-//     Route::get('/host/request', [HostController::class, 'request'])->name('host.request');
-//     Route::post('/host/send/{user}', [HostController::class, 'sendMail'])->name('host.send');
-//     Route::get('/host/accept/{user}', [HostController::class, 'acceptHost'])->name('host.accept');
-//     Route::post('/location/store', [HostController::class, 'store'])->name('location.store');
-// });
+ 
+ 

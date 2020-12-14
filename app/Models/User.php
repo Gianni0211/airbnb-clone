@@ -76,4 +76,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany(Location::class,'reservations')->using(Reservation::class)->withPivot(['check_in', 'check_out']);
     }
+
+    public function makeUserHost(){
+        $this->is_host = true;
+        $this->save();
+        return true;
+    }
 }
