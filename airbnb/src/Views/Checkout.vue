@@ -19,7 +19,7 @@
         <div class="flex justify-between mt-5">
           <div class="flex-col flex">
             <p class="font-bold text-lg">Date</p>
-            <p class="text-gray-600 my-1">{{new Date(info.check_in).toLocaleDateString(undefined)}} - {{new Date(info.check_out).toLocaleDateString(undefined)}}</p>
+            <p class="text-gray-600 my-1">{{checkinDate}} - {{checkoutDate}}</p>
           </div>
           <button class="underline font-semibold text-lg self-start">
             Modifica
@@ -196,9 +196,9 @@
           </div>
         </div>
         
-        <div class=" flex justify-between items-center  pb-6 ">
-          <h2 class="font-bold mt-3 text-lg">Totale</h2>
-          <p>€{{totalPrice}}</p>
+        <div class=" flex justify-between items-center  pb-6 mt-3 ">
+          <h2 class="font-bold text-lg">Totale</h2>
+          <p>{{totalPrice}}<span v-if="typeof totalPrice === 'number'">€</span></p> 
         </div>
        
       </div>
@@ -229,7 +229,24 @@ export default {
     totalPrice: function(){
       let period = Math.abs(new Date(this.info.check_out) - new Date(this.info.check_in)) /1000 / 60 /60 / 24 ;
       
-     return  period * this.info.guests * this.location.price;
+     return  period * this.info.guests * this.location.price  || 'Selezione le date';
+    },
+
+    checkinDate : function() {
+      let date =  new Date(this.info.check_in).toLocaleDateString(undefined);
+      if(date == 'Invalid Date'){
+        return  'data non selezionata';
+      } 
+      return date;
+      
+    },
+     checkoutDate : function() {
+      let date =  new Date(this.info.check_out).toLocaleDateString(undefined);
+      if(date == 'Invalid Date'){
+        return  'data non selezionata';
+      } 
+      return date;
+      
     }
 
   },
