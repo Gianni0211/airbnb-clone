@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex-wrap flex relative md:mt-16 mt-5">
+  <div class="container flex-wrap flex relative md:mt-16 mt-5" v-if="!isLoading">
     <div class="md:w-1/2 w-full p-5 pt-0">
       <h1 class="text-4xl font-bold">Richiedi di prenotare</h1>
 
@@ -112,7 +112,7 @@
             <div class="h-16 border-b border-gray-400 flex flex-col">
               <input
                 type="text"
-                id="cardNumber"
+                
                 placeholder="Indirizzo"
                 class="h-full w-full p-2"
               />
@@ -120,7 +120,7 @@
             <div class="h-16 border-b border-gray-400 flex flex-col">
               <input
                 type="text"
-                id="cardNumber"
+                
                 placeholder="Numero di appartamento o suite"
                 class="h-full w-full p-2"
               />
@@ -128,7 +128,7 @@
             <div class="h-16 border-b border-gray-400 flex flex-col">
               <input
                 type="text"
-                id="cardNumber"
+               
                 placeholder="Città"
                 class="h-full w-full p-2"
               />
@@ -157,13 +157,13 @@
           <div
             class="flex justify-between items-center mt-3 px-4 py-5 border border-gray-400 rounded-xl w-full"
           >
-            <select name="card" id="card" class="w-full focus:outline-none">
+            <select name="card" id="card-mobile" class="w-full focus:outline-none">
               <option value="" disabled selected="true">Paese</option>
               <option value="card-type">sis</option>
               <option value="card-type">sis</option>
               <option value="card-type">sis</option>
             </select>
-            <label for="card">
+            <label for="card-mobile">
               <i class="fas fa-chevron-down text-2xl"></i>
             </label>
           </div>
@@ -221,7 +221,8 @@ export default {
         check_out: this.$route.query.out,
         guests: this.$route.query.guests,
       },
-      location: null
+      location: null,
+      isLoading : true,
     };
   },
   computed:{
@@ -253,6 +254,7 @@ export default {
     axios.get(`api/location/show/${this.$route.params.id}`).then(res => {
       
       this.location = res.data.data[0];
+      this.isLoading = false;
     })
   }
 };

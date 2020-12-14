@@ -1,5 +1,5 @@
 <template>
-    <div class="main-div md:flex px-10 xl:px-0 -mt-3 shadow ">
+    <div class="main-div md:flex lg:px-10 px-2 xl:px-0 -mt-3 shadow ">
         <ul
             v-on-clickaway="unselect"
             class="pill-form w-full xl:w-1/2 "
@@ -115,7 +115,6 @@ export default {
         select(event) {
             this.selected = true;
             this.clicked = event.target.closest("li").getAttribute("data-id");
-            console.log(this.clicked);
         },
         unselect() {
             this.selected = false;

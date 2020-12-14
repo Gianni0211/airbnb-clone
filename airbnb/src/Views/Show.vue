@@ -1,5 +1,5 @@
 <template>
-  <div class="py-10 container-xl lg:container px-8">
+  <div class="py-10 container-xl lg:container px-8" v-if="!isLoading">
     <h1 class="font-bold text-2xl">{{ location.name }}</h1>
     <ul class="flex justify-between mt-3">
       <div class="flex justify-between w-80">
@@ -173,7 +173,7 @@
 
           <label class="mt-10 block font-bold" for="guests">Seleziona posti letto</label>
           <select
-            v-model="guests"
+            v-model="checkout.guests"
             id="guests"
             name="guests"
             autocomplete="guests"
@@ -278,6 +278,7 @@ export default {
       },
       dateSelectorMode: false,
       isDateSelected: false,
+      isLoading : true,
     };
   },
   methods: {
@@ -311,6 +312,7 @@ export default {
     const id = this.$route.params.id;
     axios.get(`/api/location/show/${id}`).then((res) => {
       this.location = res.data.data[0];
+      this.isLoading = false;
     });
   },
   

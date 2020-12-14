@@ -14,7 +14,7 @@
     "
   >
     <nav
-      class="navbar md:justify-between justify-center container-xl lg:px-40 p-10 pb-0 pt-5 relative"
+      class="navbar md:justify-between justify-center container-xl xl:px-40 p-10 pb-0 pt-5 relative"
       :class="{ 'h-48': searchBox }"
     >
       <router-link to="/">

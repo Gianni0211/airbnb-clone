@@ -56,7 +56,10 @@ const routes = [
     {
         path: "/Checkout/:id",
         component: Checkout,
-        name: "checkout"
+        name: "checkout",
+        meta : {
+            needsAuth : true,
+        }
     },
     {
         path: "/Thankyou",
