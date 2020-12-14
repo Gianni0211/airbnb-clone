@@ -307,13 +307,13 @@ export default {
      return  period * this.checkout.guests * this.location.price;
     }
   },
-  created() {
+  mounted() {
     const id = this.$route.params.id;
     axios.get(`/api/location/show/${id}`).then((res) => {
       this.location = res.data.data[0];
     });
   },
-  mounted() {},
+  
 };
 </script>
 
