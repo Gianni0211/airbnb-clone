@@ -249,7 +249,7 @@
             class="flex justify-between border-t border-gray-400 py-5 mt-5 font-bold text-xl"
           >
             <p>Totale</p>
-            <p>378€</p>
+            <p>{{price}}€</p>
           </div>
         </div>
       </div>
@@ -301,6 +301,11 @@ export default {
     more: function () {
       return this.location.images.length >= 5 ? true : false;
     },
+    price: function(){
+        let period = Math.abs(new Date(this.checkout.range.end) - new Date(this.checkout.range.start)) /1000 / 60 /60 / 24 ;
+      
+     return  period * this.checkout.guests * this.location.price;
+    }
   },
   created() {
     const id = this.$route.params.id;

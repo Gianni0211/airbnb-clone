@@ -8,7 +8,7 @@
         <div>
           <h2 class="font-semibold text-xl my-2">È un'occasione unica.</h2>
           <p class="text-gray-600">
-            Solitamente l'alloggio di !location.user è prenotato.
+            Solitamente l'alloggio di {{location.user.name}} è prenotato.
           </p>
         </div>
         <i class="far fa-gem text-green-700 text-2xl"></i>
@@ -19,7 +19,7 @@
         <div class="flex justify-between mt-5">
           <div class="flex-col flex">
             <p class="font-bold text-lg">Date</p>
-            <p class="text-gray-600 my-1">hfdsfd</p>
+            <p class="text-gray-600 my-1">{{new Date(info.check_in).toLocaleDateString(undefined)}} - {{new Date(info.check_out).toLocaleDateString(undefined)}}</p>
           </div>
           <button class="underline font-semibold text-lg self-start">
             Modifica
@@ -28,7 +28,7 @@
         <div class="flex justify-between mt-5">
           <div class="flex-col flex">
             <p class="font-bold text-lg">Ospiti</p>
-            <p class="text-gray-600 my-1">hfdsfd</p>
+            <p class="text-gray-600 my-1">{{info.guests}}</p>
           </div>
           <button class="underline font-semibold text-lg self-start">
             Modifica
