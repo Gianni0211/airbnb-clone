@@ -28,7 +28,8 @@ const routes = [
         name: "location.create",
         
         meta: {
-            needsAuth : true
+            needsAuth : true,
+            needsHost: true
         }
     },
     {
@@ -77,11 +78,18 @@ const router = new VueRouter({ mode: "history", routes });
 
 router.beforeEach((to, _, next) => {
     const isLoggedIn = store.state.auth.isLoggedIn;
+    
+    const isHost = store.state.auth.isHost;
+    
     if (to.meta.needsAuth && !isLoggedIn) {
         const currentTo = to.path;
         
         next({ name: "Login" , query: {to: currentTo}});
-    }else{
+    }
+    else if (to.meta.needsHost && !isHost){
+        next({name: 'host'})
+    }
+    else{
         next();
     }
 

@@ -4,7 +4,8 @@ export default {
     namespaced: true,
     state: {
         isLoggedIn: !!localStorage.getItem("token"),
-        user: null
+        user: null,
+        isHost : false,
     },
     getters: {
         authenticated(state) {
@@ -19,6 +20,7 @@ export default {
         loginUser(state, response) {
             localStorage.setItem("token", response.data.access_token);
             state.isLoggedIn = true;
+            
         },
         LOGOUT_USER(state) {
             localStorage.removeItem("token");
@@ -27,6 +29,7 @@ export default {
         },
         SET_USER(state, value) {
             state.user = value;
+            state.isHost = !!value.is_host;
         }
     },
     actions: {
