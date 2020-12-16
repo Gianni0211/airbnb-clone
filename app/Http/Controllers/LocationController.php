@@ -99,8 +99,9 @@ class LocationController extends Controller
             $base64_img = explode(',', $img['image'])[1];
             $path = $loc->id . '/' . $img['id'] . $img['type'];
             Storage::put('public/loc_' . $path, base64_decode($base64_img));
+            $domain = env('APP_DOMAIN');
             LocationPhotos::create([
-                'file' => 'http://localhost:8000/storage/loc_' . $path,
+                'file' => "$domain/storage/loc_" . $path,
                 'location_id' => $loc->id
             ]);
         }
